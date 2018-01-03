@@ -1,16 +1,57 @@
-.dark-modal .modal-content {
-      background-color: #292b2c;
-      color: white;
+.top{
+  position: absolute;
+  top: 50px;
+}
+.right {
+  right: 50px;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .popup {
+    margin: 70px auto;
+    padding: 20px;
+    background-color: #292b2c;
+    color: white;
+    border-radius: 5px;
+    width: 30%;
+    position: relative;
+    transition: all 5s ease-in-out;
+  }
+  
+  .popup .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+  }
+  .popup .close:hover {
+    color: #06D85F;
+  }
+  .popup .content {
+    max-height: 70vh;
+    overflow: auto;
+  }
+  
+  @media screen and (max-width: 700px){
+    .box{
+      width: 70%;
     }
-.dark-modal .close {
-    color: white;   
-}
-.language-yml{
-    color: wheat;
-}
-.language-shell{
-    color: white !important;
-}
-#imgPresentation{
-    height: 100% !important;
-}
+    .popup{
+      width: 70%;
+    }
+  }

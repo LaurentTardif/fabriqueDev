@@ -1,35 +1,30 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { MarkdownModule } from 'ngx-md';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { MarkdownModule } from 'angular2-markdown';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-
-import {IdentityService} from "./identity.service";
-import {CheckToolsService} from "./check-tools.service";
-import { CycleComponent } from './cycle/cycle.component';
+import { PisteComponent } from './piste/piste.component';
 import { ToolsComponent } from './tools/tools.component';
+import { HomeComponent } from './home/home.component';
+import { IdentityService } from './service/identity.service';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    CycleComponent,
-    ToolsComponent
+    PisteComponent,
+    ToolsComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
-    FlexLayoutModule,
-    NgbModule.forRoot(),
-    MarkdownModule.forRoot(),
+    HttpClientModule,
+    MarkdownModule.forRoot()
   ],
-  providers: [IdentityService,CheckToolsService],
+  providers: [IdentityService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

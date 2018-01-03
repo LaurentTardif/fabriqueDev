@@ -1,84 +1,48 @@
-<ng-template #content let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4>Settings</h4>
+<div>
+  <div class="top right">
+    <img (click)="open()" width="100px" src="assets/snowcamp.png">
   </div>
-  <div class="modal-body">
-    <div class="form-group">
-      <label for="ip">Your IP Server</label>
-      <input type="url" [(ngModel)]="identityService.identity.ciIp" class="form-control" aria-describedby="Ip of your ci" placeholder="10.11.21.32"
-      />
-      <label for="ip">Your CI domaine</label>
-      <input type="url" [(ngModel)]="identityService.identity.ciDomain" class="form-control" aria-describedby="Domain of your ci" placeholder="breizh.ci"
-      />
-      <label for="host">Can you copy this in your /etc/hosts</label>
-      <div id="host">
-        {{identityService.identity.ciIp}} gitlab.{{identityService.identity.ciDomain}} svn.{{identityService.identity.ciDomain}} mercurial.{{identityService.identity.ciDomain}} bitbucket.{{identityService.identity.ciDomain}} jenkins.{{identityService.identity.ciDomain}} bamboo.{{identityService.identity.ciDomain}} teamcity.{{identityService.identity.ciDomain}} nexus.{{identityService.identity.ciDomain}} artifactory.{{identityService.identity.ciDomain}} synopia.{{identityService.identity.ciDomain}} dockerhub.{{identityService.identity.ciDomain}} rundeck.{{identityService.identity.ciDomain}} gocd.{{identityService.identity.ciDomain}} nginx.{{identityService.identity.ciDomain}} httpd.{{identityService.identity.ciDomain}} tomcat.{{identityService.identity.ciDomain}} jetty.{{identityService.identity.ciDomain}} websphere.{{identityService.identity.ciDomain}} sonar.{{identityService.identity.ciDomain}} teamscale.{{identityService.identity.ciDomain}} wekan.{{identityService.identity.ciDomain}} jira.{{identityService.identity.ciDomain}} redmine.{{identityService.identity.ciDomain}} mantis.{{identityService.identity.ciDomain}} nginx.{{identityService.identity.ciDomain}} mattermost.{{identityService.identity.ciDomain}} zulip.{{identityService.identity.ciDomain}} rocketchat.{{identityService.identity.ciDomain}}
+</div>
+
+<div class="overlay" *ngIf="openPopup">
+	<div class="popup">
+		<a class="close" (click)="close()">&times;</a>
+    <div class="modal-header">
+      <h4>Settings</h4>
+    </div>
+    <hr/>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="ip">Your IP Server</label>
+        <input type="url" [(ngModel)]="_identityService.identity.ciIp" class="form-control" aria-describedby="Ip of your ci"/>
+      </div>
+      <div class="form-group">
+        <label for="ip">Your CI domaine</label>
+        <input type="url" [(ngModel)]="_identityService.identity.ciDomain" class="form-control" aria-describedby="Domain of your ci"/>
+      </div>
+      <div *ngIf="_identityService.identity.ciDomain && _identityService.identity.ciIp">
+        <label >You can copy this in your /etc/hosts</label>
+        <div class="language-shell">
+          {{_identityService.identity.ciIp}} gitlab.{{_identityService.identity.ciDomain}} svn.{{_identityService.identity.ciDomain}} 
+          mercurial.{{_identityService.identity.ciDomain}} bitbucket.{{_identityService.identity.ciDomain}} 
+          jenkins.{{_identityService.identity.ciDomain}} bamboo.{{_identityService.identity.ciDomain}} 
+          teamcity.{{_identityService.identity.ciDomain}} nexus.{{_identityService.identity.ciDomain}} 
+          artifactory.{{_identityService.identity.ciDomain}} synopia.{{_identityService.identity.ciDomain}} 
+          dockerhub.{{_identityService.identity.ciDomain}} rundeck.{{_identityService.identity.ciDomain}} 
+          gocd.{{_identityService.identity.ciDomain}} nginx.{{_identityService.identity.ciDomain}} httpd.{{_identityService.identity.ciDomain}} 
+          tomcat.{{_identityService.identity.ciDomain}} jetty.{{_identityService.identity.ciDomain}} 
+          websphere.{{_identityService.identity.ciDomain}} sonar.{{_identityService.identity.ciDomain}} 
+          teamscale.{{_identityService.identity.ciDomain}} wekan.{{_identityService.identity.ciDomain}} 
+          jira.{{_identityService.identity.ciDomain}} redmine.{{_identityService.identity.ciDomain}} 
+          mantis.{{_identityService.identity.ciDomain}} nginx.{{_identityService.identity.ciDomain}} 
+          mattermost.{{_identityService.identity.ciDomain}} zulip.{{_identityService.identity.ciDomain}} 
+          rocketchat.{{_identityService.identity.ciDomain}}
+        </div>
       </div>
     </div>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="save();c()">Save</button>
-    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
-  </div>
-</ng-template>
-<ng-template #slider let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4>Docker Slider</h4>
-  </div>
-  <div class="modal-body">
-    <ngb-carousel>
-      <template ngbSlide>
-        <img id="imgPresentation" src="assets/presentation/docker1.svg">
-      </template>
-      <template ngbSlide>
-        <img id="imgPresentation" src="assets/presentation/docker2.svg">
-      </template>
-      <template ngbSlide>
-        <img id="imgPresentation" src="assets/presentation/docker3.svg">
-      </template>
-      <template ngbSlide>
-        <img id="imgPresentation" src="assets/presentation/docker4.svg">
-      </template>
-      <template ngbSlide>
-        <img id="imgPresentation" src="assets/presentation/docker5.svg">
-      </template>
-      <template ngbSlide>
-        <img id="imgPresentation" src="assets/presentation/docker6.svg">
-      </template>
-      <template ngbSlide>
-        <img id="imgPresentation" src="assets/presentation/docker7.svg">
-      </template>
-      <template ngbSlide>
-        <img id="imgPresentation" src="assets/presentation/docker8.svg">
-      </template>
-      <template ngbSlide>
-        <img id="imgPresentation" src="assets/presentation/docker9.svg">
-      </template>
-      <template ngbSlide>
-        <img id="imgPresentation" src="assets/presentation/docker10.svg">
-      </template>
-    </ngb-carousel>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
-  </div>
-</ng-template>
-<ng-template #swarm let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4>Rules for using Docker Swarm !</h4>
-  </div>
-  <div class="modal-body">
-    <markdown path="assets/docs/dockerswarm.md"></markdown>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
-  </div>
-</ng-template>
-<div fxLayout="row" fxLayoutAlign="none none">
-  <div>
-    <img (click)="open(content)" width="100px" src="assets/home.png">
-  </div>
-  <div>
-    <img (click)="open(swarm)" *ngIf="this.identityService.identity.ci && this.identityService.identity.communication && this.identityService.identity.ops && this.identityService.identity.server && this.identityService.identity.scm && this.identityService.identity.repo && this.identityService.identity.organization && this.identityService.identity.quality" width="100px" src="assets/dockerswarm.png">
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+      <button type="button" class="btn btn-secondary" (click)="close()">Close</button>
+    </div>
   </div>
 </div>

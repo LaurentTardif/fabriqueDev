@@ -1,34 +1,12 @@
-<ng-template #content let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4>Rules to install {{name}} !</h4>
-    <button type="button" class="close" aria-label="Close" (click)="c('Close click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-  </div>
-  <div class="modal-body">
-    <div Markdown>{{markdown}}</div>
-  </div>
-  <div class="modal-footer">
-    <ngb-alert [type]="type">{{ message }}</ngb-alert>
-    <button type="button" class="btn btn-primary" (click)="check()">Check</button>
-  </div>
-</ng-template>
-
-<div [ngSwitch]="group">
-  <img *ngSwitchCase="'scm'" (click)="open(content)" [ngClass]="(health==true||this.identityService.identity.scm==true)?'tools':'disabled tools'"
-  width="130px" src="assets/formules/{{name}}.svg" placement="top" ngbTooltip="{{name}}">
-  <img *ngSwitchCase="'ci'" (click)="open(content)" [ngClass]="(health==true||this.identityService.identity.ci==true)?'tools':'disabled tools'"
-  width="130px" src="assets/formules/{{name}}.svg" placement="top" ngbTooltip="{{name}}">
-  <img *ngSwitchCase="'repo'" (click)="open(content)" [ngClass]="(health==true||this.identityService.identity.repo==true)?'tools':'disabled tools'"
-  width="130px" src="assets/formules/{{name}}.svg" placement="top" ngbTooltip="{{name}}">
-  <img *ngSwitchCase="'ops'" (click)="open(content)" [ngClass]="(health==true||this.identityService.identity.ops==true)?'tools':'disabled tools'"
-  width="130px" src="assets/formules/{{name}}.svg" placement="top" ngbTooltip="{{name}}">
-  <img *ngSwitchCase="'server'" (click)="open(content)" [ngClass]="(health==true||this.identityService.identity.server==true)?'tools':'disabled tools'"
-  width="130px" src="assets/formules/{{name}}.svg" placement="top" ngbTooltip="{{name}}">
-  <img *ngSwitchCase="'quality'" (click)="open(content)" [ngClass]="(health==true||this.identityService.identity.quality==true)?'tools':'disabled tools'"
-  width="130px" src="assets/formules/{{name}}.svg" placement="top" ngbTooltip="{{name}}">
-  <img *ngSwitchCase="'communication'" (click)="open(content)" [ngClass]="(health==true||this.identityService.identity.communication==true)?'tools':'disabled tools'"
-  width="130px" src="assets/formules/{{name}}.svg" placement="top" ngbTooltip="{{name}}">
-  <img *ngSwitchCase="'organization'" (click)="open(content)" [ngClass]="(health==true||this.identityService.identity.organization==true)?'tools':'disabled tools'"
-  width="130px" src="assets/formules/{{name}}.svg" placement="top" ngbTooltip="{{name}}">
+<div id="popup1" class="overlay">
+	<div class="popup">
+		<a class="close" (click)="close()">&times;</a>
+		<div class="content">
+			<markdown [data]='markdown'></markdown>
+		</div>
+		<div class="modal-footer">
+		  <div>{{ message }}</div>
+		  <button type="button" class="btn btn-primary" (click)="check()">Check</button>
+		</div>
+	</div>
 </div>

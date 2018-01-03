@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { IdentityService } from "../identity.service";
+import { IdentityService } from "../service/identity.service";
 
 @Component({
   selector: 'app-home',
@@ -9,13 +8,23 @@ import { IdentityService } from "../identity.service";
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public identityService: IdentityService, private modalService: NgbModal) {
+  openPopup = false;
+
+  constructor(public _identityService: IdentityService) {
   }
-  open(content) {
-    this.modalService.open(content,{ windowClass: 'dark-modal',size: 'lg' });
+
+
+  open() {
+    this.openPopup = true;
   }
+
+  close() {
+    this.openPopup = false;
+  }
+
   save() {
-    this.identityService.save();
+    this._identityService.save();
+    this.openPopup = false;
   }
 
   ngOnInit() {

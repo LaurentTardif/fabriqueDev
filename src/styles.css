@@ -1,14 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-body{
-  background-color: transparent;
+.language-yml{
+    color: wheat;
 }
-html { 
-  background: url(/assets/background.jpg) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-.carousel-item{
-    height: 500px !important;
+.language-shell{
+    color: white !important;
 }

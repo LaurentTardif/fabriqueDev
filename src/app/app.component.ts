@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Tools } from './tools'
 
 @Component({
   selector: 'app-root',
@@ -7,6 +6,5 @@ import { Tools } from './tools'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  tools: any = Tools;
-
+  currentTool = null;
 }
