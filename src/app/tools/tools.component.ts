@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { IdentityService } from "../service/identity.service";
 
 @Component({
   selector: 'app-tools',
@@ -13,12 +14,12 @@ export class ToolsComponent implements OnInit {
 
   markdown : string;
 
-  constructor(private _http : HttpClient) { }
+  constructor(private _http : HttpClient, public _identityService: IdentityService) { }
 
   ngOnInit() {
     console.log(this.toolToOpen);
     this._http.get('assets/docs/' + this.toolToOpen + '.md',{ responseType: 'text'})
-      .subscribe(res => this.markdown = res)
+      .subscribe(res => this.markdown = res.replace(new RegExp("{{this.identityService.identity.ciDomain}}", 'g'), this._identityService.identity.ciDomain))
   }
 
   close() {
