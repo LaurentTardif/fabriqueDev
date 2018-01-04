@@ -9,6 +9,7 @@ import { PisteComponent } from './piste/piste.component';
 import { ToolsComponent } from './tools/tools.component';
 import { HomeComponent } from './home/home.component';
 import { IdentityService } from './service/identity.service';
+import { CheckToolsService } from './service/check-tools.service';
 
 
 @NgModule({
@@ -24,7 +25,7 @@ import { IdentityService } from './service/identity.service';
     HttpClientModule,
     MarkdownModule.forRoot()
   ],
-  providers: [IdentityService],
+  providers: [IdentityService, CheckToolsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

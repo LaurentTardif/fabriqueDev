@@ -10,3 +10,6 @@
     cursor: pointer;
     opacity: 1;
 }
+.activated{
+    opacity: 1;
+}

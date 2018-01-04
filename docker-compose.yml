@@ -1,0 +1,26 @@
+version: '3'       
+services:
+    nginx-proxy:
+        image: jwilder/nginx-proxy
+        container_name: nginx-proxy
+        ports:
+            - "80:80"
+        volumes:
+            - /var/run/docker.sock:/tmp/docker.sock:ro
+            - /mnt/B4CC329DCC325A36/Documents/présentations/fabriqueDev/test/nginx.tmpl:/app/nginx.tmpl
+    snowcamp:
+        image: snowcamp:latest
+        container_name: snowcamp
+        ports:
+            - "81:80"
+        environment:
+            - VIRTUAL_HOST=fab.snow.ci
+    jenkins:
+        image: jenkins:2.46.1
+        ports:
+            - 8081:8080
+        environment:
+            - VIRTUAL_HOST=jenkins.snow.ci
+            - VIRTUAL_PORT=8080              
+        volumes:
+            - /mnt/B4CC329DCC325A36/Documents/présentations/fabriqueDev/test/jenkins:/var/jenkins_home
