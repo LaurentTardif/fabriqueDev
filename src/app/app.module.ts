@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { PisteComponent } from './piste/piste.component';
 import { ToolsComponent } from './tools/tools.component';
+import { CycleComponent } from './cycle/cycle.component';
 import { HomeComponent } from './home/home.component';
 import { IdentityService } from './service/identity.service';
 import { CheckToolsService } from './service/check-tools.service';
@@ -17,7 +18,8 @@ import { CheckToolsService } from './service/check-tools.service';
     AppComponent,
     PisteComponent,
     ToolsComponent,
-    HomeComponent
+    HomeComponent,
+    CycleComponent
   ],
   imports: [
     BrowserModule,

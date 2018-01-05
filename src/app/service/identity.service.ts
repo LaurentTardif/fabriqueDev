@@ -24,6 +24,7 @@ export class IdentityService {
     this.identity.repo = false;
     this.identity.organization = false;
     this.identity.quality = false;
+    this.identity.checkTools = [];
     this.save();
   }
 

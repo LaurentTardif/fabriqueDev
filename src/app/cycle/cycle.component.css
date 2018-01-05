@@ -1,0 +1,22 @@
+.step-name-disable{
+    color:grey;
+    text-align: center;
+}
+.step-name-enable{
+    text-align: center;
+    height: 0px;
+}
+svg{
+    display: block;
+    margin: auto;
+}
+.cycle .step {
+    float: left;
+    width:12%
+}
+.cycle {
+    position: absolute;
+    top: 20px;
+    left: 50px;
+    width:100%
+}
