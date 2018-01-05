@@ -1,4 +1,7 @@
 # FabriqueDev
+Emportez votre fabrique de dev
+
+[Candidats à la fabrique](./src/assets/docs/Candidats.md)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.
 
@@ -25,3 +28,9 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+# Deploy VM to EC2
+aws ec2 run-instances --image-id ami-46f02029 --count 1 --instance-type m3.xlarge --security-groups breizhcamp --user-data file://./user-data.yml --block-device-mappings file://mapping.json
+
+# Build docker
+docker build -t snowcamp .
