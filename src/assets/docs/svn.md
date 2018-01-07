@@ -17,8 +17,8 @@ services:
             - VIRTUAL_HOST=svn.{{this.identityService.identity.ciDomain}}
             - VIRTUAL_PORT=80  
         volumes:
-            - /home/walter/fabriq/svn/local:/var/local/svn
-            - /home/walter/fabriq/svn/backup:/var/svn-backup
-            - /home/walter/fabriq/svn/dav:/etc/apache2/dav_svn/
+            - /home/snow/fabriq/svn/local:/var/local/svn
+            - /home/snow/fabriq/svn/backup:/var/svn-backup
+            - /home/snow/fabriq/svn/dav:/etc/apache2/dav_svn/
 
 ```

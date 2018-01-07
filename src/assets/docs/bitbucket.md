@@ -14,8 +14,8 @@ services:
     bitbucket:
         image: cptactionhank/atlassian-bitbucket:4.14.4
         volumes:
-            - /home/walter/fabriq/bitbucket/home:/var/atlassian/bitbucket
-            - /home/walter/fabriq/bitbucket/logs:/opt/atlassian/bitbucket/logs
+            - /home/snow/fabriq/bitbucket/home:/var/atlassian/bitbucket
+            - /home/snow/fabriq/bitbucket/logs:/opt/atlassian/bitbucket/logs
         environment:
             - VIRTUAL_HOST=bitbucket.{{this.identityService.identity.ciDomain}}
             - VIRTUAL_PORT=7990              

@@ -11,13 +11,13 @@ version: "3"
 
 services:
     httpd:
-        image: httpd:2.4.25
+        image: httpd:2.4.29
         ports:
             - 8095:80
         environment:
             - VIRTUAL_HOST=apache.{{this.identityService.identity.ciDomain}}
             - VIRTUAL_PORT=80                   
         volumes:
-            - /home/walter/fabriq/httpd/html:/usr/local/apache2/htdocs/ 
+            - /home/snow/fabriq/httpd/html:/usr/local/apache2/htdocs/ 
 ```
 

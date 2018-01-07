@@ -11,8 +11,8 @@ version: "3"
 
 services:
     gitlab:
-        image: gitlab/gitlab-ce:9.0.0-ce.0
-        hostname: $$your_ci_uri$$
+        image: gitlab/gitlab-ce:10.3.3-ce.0
+        hostname: gitlab.{{this.identityService.identity.ciDomain}}
         ports:
             - 8080:80
             - 8443:443
@@ -20,9 +20,9 @@ services:
             - VIRTUAL_HOST=gitlab.{{this.identityService.identity.ciDomain}}
             - VIRTUAL_PORT=80                   
         volumes:
-            - /home/walter/fabriq/gitlab/config:/etc/gitlab 
-            - /home/walter/fabriq/gitlab/logs:/var/log/gitlab 
-            - /home/walter/fabriq/gitlab/data:/var/opt/gitlab 
+            - /home/snow/fabriq/gitlab/config:/etc/gitlab 
+            - /home/snow/fabriq/gitlab/logs:/var/log/gitlab 
+            - /home/snow/fabriq/gitlab/data:/var/opt/gitlab 
 
 ```
 
@@ -30,4 +30,4 @@ services:
 http://gitlab.{{this.identityService.identity.ciDomain}}/
 
 * Change `root` password
-* New project, git repo by url : https://github.com/stalina/fabriqueDev.git, public project
+* New project, git repo by url : https://github.com/norsys/fabriqueDev.git, public project
