@@ -12,9 +12,9 @@ version: "3"
 
 services:
     nexus:
-        image: sonatype/nexus3:3.2.1
+        image: sonatype/nexus3:3.7.1
         volumes:
-            - "/home/walter/fabriq/nexus:/nexus-data"
+            - "/home/snow/fabriq/nexus:/nexus-data"
         ports:
             - 8082:8081 
         environment:
