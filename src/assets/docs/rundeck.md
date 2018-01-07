@@ -3,7 +3,7 @@ Rundeck
 
 Official docker image : https://hub.docker.com/r/jordan/rundeck/
 
-Launch cmd `sudo mkdir -p /home/walter/fabriq/shared`, then `sudo chmod 777 /home/walter/fabriq/shared` to be autorised to write on the volume.  
+Launch cmd `sudo mkdir -p /home/snow/fabriq/shared`, then `sudo chmod 777 /home/snow/fabriq/shared` to be autorised to write on the volume.  
 
 * Docker compose :
 
@@ -12,17 +12,17 @@ version: "3"
 
 services:
     rundeck:
-        image: jordan/rundeck:2.7.3
+        image: jordan/rundeck:2.10.2
         ports:
             - 8083:4440
         volumes:
-            - /home/walter/fabriq/rundeck/etc:/etc/rundeck
-            - /home/walter/fabriq/rundeck/var:/var/rundeck
-            - /home/walter/fabriq/rundeck/varlog:/var/log/rundeck
-            - /home/walter/fabriq/rundeck/plugins:/opt/rundeck-plugins
-            - /home/walter/fabriq/rundeck/log:/var/lib/rundeck/logs
-            - /home/walter/fabriq/rundeck/data:/var/lib/rundeck/var/storage
-            - /home/walter/fabriq/shared:/tmp/fabriq/shared
+            - /home/snow/fabriq/rundeck/etc:/etc/rundeck
+            - /home/snow/fabriq/rundeck/var:/var/rundeck
+            - /home/snow/fabriq/rundeck/varlog:/var/log/rundeck
+            - /home/snow/fabriq/rundeck/plugins:/opt/rundeck-plugins
+            - /home/snow/fabriq/rundeck/log:/var/lib/rundeck/logs
+            - /home/snow/fabriq/rundeck/data:/var/lib/rundeck/var/storage
+            - /home/snow/fabriq/shared:/tmp/fabriq/shared
         environment:
             - RUNDECK_ADMIN_PASSWORD=admin
             - SERVER_URL=http://localhost:8083

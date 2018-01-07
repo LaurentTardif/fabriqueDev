@@ -24,3 +24,49 @@ services:
             - VIRTUAL_PORT=8080              
         volumes:
             - /mnt/B4CC329DCC325A36/Documents/présentations/fabriqueDev/test/jenkins:/var/jenkins_home
+    httpd:
+        image: httpd:2.4.29
+        ports:
+            - 8095:80
+        environment:
+            - VIRTUAL_HOST=apache.snow.ci
+            - VIRTUAL_PORT=80                   
+        volumes:
+            - /mnt/B4CC329DCC325A36/Documents/présentations/fabriqueDev/test/httpd/html:/usr/local/apache2/htdocs/
+    svn:
+        image: marvambass/subversion
+        ports:
+            - 8090:80
+        environment:
+            - VIRTUAL_HOST=svn.snow.ci
+            - VIRTUAL_PORT=80  
+        volumes:
+            - /mnt/B4CC329DCC325A36/Documents/présentations/fabriqueDev/test/svn/local:/var/local/svn
+            - /mnt/B4CC329DCC325A36/Documents/présentations/fabriqueDev/test/svn/backup:/var/svn-backup
+            - /mnt/B4CC329DCC325A36/Documents/présentations/fabriqueDev/test/svn/dav:/etc/apache2/dav_svn/
+    nexus:
+        image: sonatype/nexus3:3.7.1
+        volumes:
+            - "/mnt/B4CC329DCC325A36/Documents/présentations/fabriqueDev/test/nexus:/nexus-data"
+        ports:
+            - 8082:8081 
+        environment:
+            - VIRTUAL_HOST=nexus.snow.ci
+            - VIRTUAL_PORT=8081
+    gocd-server:
+        image: gocd/gocd-server:v17.12.0
+        ports:
+            - 8093:8153
+            - 8094:8154
+        environment:
+            - VIRTUAL_HOST=gocd.snow.ci
+            - VIRTUAL_PORT=8153  
+        volumes:
+            - /mnt/B4CC329DCC325A36/Documents/présentations/fabriqueDev/test/godata/addons:/godata/addons
+            - /mnt/B4CC329DCC325A36/Documents/présentations/fabriqueDev/test/godata/artifacts:/godata/artifacts
+            - /mnt/B4CC329DCC325A36/Documents/présentations/fabriqueDev/test/godata/config:/godata/config
+            - /mnt/B4CC329DCC325A36/Documents/présentations/fabriqueDev/test/godata/db:/godata/db
+            - /mnt/B4CC329DCC325A36/Documents/présentations/fabriqueDev/test/godata/logs:/godata/logs
+            - /mnt/B4CC329DCC325A36/Documents/présentations/fabriqueDev/test/godata/plugins:/godata/plugins
+            - /mnt/B4CC329DCC325A36/Documents/présentations/fabriqueDev/test/godata/go:/home/go    
+
