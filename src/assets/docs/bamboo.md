@@ -12,14 +12,14 @@ version: "3"
 
 services:
     bamboo:
-        image: cptactionhank/atlassian-bamboo:5.15.3
+        image: cptactionhank/atlassian-bamboo:6.3.0
         ports:
             - 8091:8085
         environment:
-            - VIRTUAL_HOST=apache.{{this.identityService.identity.ciDomain}}
+            - VIRTUAL_HOST=bamboo.{{this.identityService.identity.ciDomain}}
             - VIRTUAL_PORT=8085              
         volumes:
-            - /home/walter/fabriq/bamboo/data:/var/atlassian/bamboo
-            - /home/walter/fabriq/bamboo/logs:/opt/atlassian/bamboo/logs
+            - /home/snow/fabriq/bamboo/data:/var/atlassian/bamboo
+            - /home/snow/fabriq/bamboo/logs:/opt/atlassian/bamboo/logs
 
 ```
