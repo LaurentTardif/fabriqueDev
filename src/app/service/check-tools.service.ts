@@ -24,7 +24,8 @@ export class CheckToolsService {
 
   private extractData(res: Response | any, tools: string,identity : Identity) {
     identity.checkTools[tools] = true;
-    console.log('ok');
+    this.toolsIsEnabled(tools,identity );
+    console.log('ok : '+JSON.stringify(identity));
     return true;
   }
 

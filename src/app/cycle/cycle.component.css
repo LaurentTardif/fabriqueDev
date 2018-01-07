@@ -6,6 +6,9 @@
     text-align: center;
     height: 0px;
 }
+.step img {
+    width:100%;
+}
 svg{
     display: block;
     margin: auto;

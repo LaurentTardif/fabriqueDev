@@ -15,7 +15,6 @@ export class CycleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._identityService.clean();
   }
 
 }
