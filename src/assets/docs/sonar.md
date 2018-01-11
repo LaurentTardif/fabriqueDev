@@ -11,17 +11,17 @@ version: "3"
 
 services:
     sonarqube:
-        image: sonarqube:6.3
+        image: sonarqube:6.7.1
         ports:
             - 8085:9000
         environment:
             - VIRTUAL_HOST=sonar.{{this.identityService.identity.ciDomain}}
             - VIRTUAL_PORT=9000  
         volumes:
-            - /home/walter/fabriq/sonarqube/conf:/opt/sonarqube/conf
-            - /home/walter/fabriq/sonarqube/data:/opt/sonarqube/data
-            - /home/walter/fabriq/sonarqube/extensions:/opt/sonarqube/extensions
-            - /home/walter/fabriq/sonarqube/bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+            - /home/snow/fabriq/sonarqube/conf:/opt/sonarqube/conf
+            - /home/snow/fabriq/sonarqube/data:/opt/sonarqube/data
+            - /home/snow/fabriq/sonarqube/extensions:/opt/sonarqube/extensions
+            - /home/snow/fabriq/sonarqube/bundled-plugins:/opt/sonarqube/lib/bundled-plugins
 
 ```
 
@@ -37,8 +37,8 @@ Configure project :
 * Add `sonar-project.properties` file at the root of your project :
 
 ```yml
-sonar.projectKey=fr.breizhcamp:fabriq
-sonar.projectName=Breizhcamp :: Ma fabrique de l ouest
+sonar.projectKey=fr.snowcamp:fabriq
+sonar.projectName=Snowcamp :: Ma fabrique de neige
 sonar.projectVersion=1.0  
 sonar.language=js 
 sonar.sources=src 

@@ -11,10 +11,10 @@ version: "3"
 
 services:
     teamscale:
-        image: cqse/teamscale:teamscale_v3.2.0
+        image: cqse/teamscale:3.9.0
         volumes:
-            - /home/walter/fabriq/teamscale/storage:/opt/teamscale/storage
-            - /home/walter/fabriq/teamscale/backup:/backup
+            - /home/snow/fabriq/teamscale/storage:/opt/teamscale/storage
+            - /home/snow/fabriq/teamscale/backup:/backup
         ports:
             - 8096:8080
         environment:
