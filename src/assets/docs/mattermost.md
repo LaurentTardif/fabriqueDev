@@ -10,7 +10,7 @@ version: "3"
 
 services:
     mattermost:
-        image: mattermost/mattermost-preview:3.7
+        image: mattermost/mattermost-preview:4.6
         ports:
             - 8077:8065
         environment:
