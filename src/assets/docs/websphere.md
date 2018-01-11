@@ -18,5 +18,5 @@ services:
             - VIRTUAL_HOST=websphere.{{this.identityService.identity.ciDomain}}
             - VIRTUAL_PORT=9080  
          volumes:
-            - /home/walter/fabriq/websphere/yourwar.war:/config/dropins/yourwar.war
+            - /home/snow/fabriq/websphere/yourwar.war:/config/dropins/yourwar.war
 ```

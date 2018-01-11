@@ -16,7 +16,7 @@ services:
             - 8095:80
         environment:
             - VIRTUAL_HOST=apache.{{this.identityService.identity.ciDomain}}
-            - VIRTUAL_PORT=80                   
+            - VIRTUAL_PORT=80
         volumes:
             - /home/snow/fabriq/httpd/html:/usr/local/apache2/htdocs/ 
 ```
