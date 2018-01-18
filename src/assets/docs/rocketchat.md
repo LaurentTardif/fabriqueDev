@@ -2,7 +2,7 @@ RocketChat
 ================
 
 Official docker image : https://hub.docker.com/r/rocketchat/rocket.chat/
-(you might need to launch the docker-compose twice since mongo takes times to init sometimes)
+(you might need to launch the docker-compose twice since mongo takes times to init sometimesgit )
 
 * Docker compose :
 
