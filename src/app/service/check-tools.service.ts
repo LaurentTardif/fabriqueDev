@@ -17,7 +17,7 @@ export class CheckToolsService {
 
 
   health(tools: string, identity : Identity): Observable<Boolean> {
-    return this._http.get(`http://${tools}.${identity.ciDomain}/${this.getExtraUrlPart(tools)}`.toString(),  {responseType: 'text'})
+    return this._http.get(`${this.getProtocol(tools)}://${tools}.${identity.ciDomain}${this.getExtraUrlPart(tools)}`.toString(),  {responseType: 'text'})
       .map(res => this.extractData(res, tools, identity))
       .catch(res => this.handleError(res, tools, identity));
   }
@@ -35,11 +35,21 @@ export class CheckToolsService {
     return Observable.throw(false);
   }
 
+  private getProtocol(tools: string){
+    if(tools == 'zulip'){
+      return 'https';
+    }
+    return 'http';
+  }
+
   private getExtraUrlPart(tools: string){
     if(tools == 'jenkins'){
-      return 'login';
+      return '/login';
     }
-    return '';
+    if(tools == 'zulip'){
+      return ':7443/login/';
+    }
+    return '/';
   }
 
   private toolsIsEnabled(tools: string,identity : Identity) {

@@ -16,7 +16,7 @@ services:
             POSTGRES_USER: zulip
             POSTGRES_PASSWORD: zulip
         volumes:
-            - "/home/walter/fabriq/zulip/postgresql/data:/var/lib/postgresql/data:rw"
+            - "/home/snow/fabriq/zulip/postgresql/data:/var/lib/postgresql/data:rw"
 
     memcached:
         image: "quay.io/sameersbn/memcached:latest"
@@ -33,7 +33,7 @@ services:
     redis:
         image: "quay.io/sameersbn/redis:latest"
         volumes:
-            - "/home/walter/fabriq/zulip/redis:/var/lib/redis:rw"
+            - "/home/snow/fabriq/zulip/redis:/var/lib/redis:rw"
 
     zulip:
         image: "quay.io/galexrt/zulip:1.5.1-5"
@@ -72,6 +72,6 @@ services:
             VIRTUAL_HOST: zulip.{{this.identityService.identity.ciDomain}}
             VIRTUAL_PORT: 80  
         volumes:
-            - "/home/walter/fabriq/zulip/zulip:/data:rw"
+            - "/home/snow/fabriq/zulip/zulip:/data:rw"
 
 ```
