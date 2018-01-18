@@ -16,11 +16,11 @@ services:
         environment:
             - VIRTUAL_HOST=fab.snow.ci
     
-    
-    artifactory:
-        image: docker.bintray.io/jfrog/artifactory-oss:5.8.3
+    verdaccio:
+        image: verdaccio/verdaccio:2.7.3
+        container_name: verdaccio
         ports:
-            - 8092:8081
+            - "8092:4873"
         environment:
-            - VIRTUAL_HOST=artifactory.snow.ci
-            - VIRTUAL_PORT=8081              
+            - VIRTUAL_HOST=verdaccio.snow.ci
+            - VIRTUAL_PORT=4873

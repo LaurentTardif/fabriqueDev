@@ -8,7 +8,7 @@ export enum Tools {
     TEAMCITY = <any>"http://teamcity.CI_DOMAIN/login.html",
     NEXUS = <any>"http://nexus.CI_DOMAIN/",
     ARTIFACTORY = <any>"http://artifactory.CI_DOMAIN/",
-    SYNOPIA = <any>"http://sinopia.CI_DOMAIN/",
+    VERDACCIO = <any>"http://verdaccio.CI_DOMAIN/",
     DOCKERHUB = <any>"http://dockerhub.CI_DOMAIN/v2/",
     RUNDECK = <any>"http://rundeck.CI_DOMAIN/",
     GOCD = <any>"http://gocd.CI_DOMAIN/",

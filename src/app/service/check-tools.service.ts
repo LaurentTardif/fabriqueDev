@@ -81,7 +81,7 @@ export class CheckToolsService {
       case 'artifactory':
         identity.repo = true;
         break;
-      case 'synopia':
+      case 'verdaccio':
         identity.repo = true;
         break;
       case 'dockerhub':
