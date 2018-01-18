@@ -11,13 +11,16 @@ version: "3"
 
 services:
     artifactory:
-        image: docker.bintray.io/jfrog/artifactory-oss:5.2.0
+        image: docker.bintray.io/jfrog/artifactory-oss:5.8.3
         ports:
             - 8092:8081
         environment:
             - VIRTUAL_HOST=artifactory.{{this.identityService.identity.ciDomain}}
-            - VIRTUAL_PORT=8081              
-        volumes:
-            - /home/walter/fabriq/artifactory:/var/opt/jfrog/artifactory
+            - VIRTUAL_PORT=8081
+    #    Add extra Java options by uncommenting the following lines
+    #    environment:
+    #     - EXTRA_JAVA_OPTIONS=-Xmx4g
 
 ```
+
+The default user is : admin/password
