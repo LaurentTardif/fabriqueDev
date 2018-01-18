@@ -14,16 +14,17 @@ services:
         ports:
             - 8086:80
         environment:
-            - MONGO_URL=mongodb://wekandb/wekan
-            - ROOT_URL=http://wekan.{{this.identityService.identity.ciDomain}}
-            - VIRTUAL_HOST=wekan.{{this.identityService.identity.ciDomain}}
+            - MONGO_URL=mongodb://wekandb:27017/wekan
+            - ROOT_URL=http://wekan.snow.ci
+            - VIRTUAL_HOST=wekan.snow.ci
             - VIRTUAL_PORT=80  
 
-    
     wekandb:
-        image: mongo
-        volumes:
-            - /home/walter/fabriq/wekan/mongo:/data/db
+        image: mongo:3.2.18
+        container_name: wekan-db
+        command: mongod --smallfiles --oplogSize 128
+        expose:
+            - 27017
 
 ```
 

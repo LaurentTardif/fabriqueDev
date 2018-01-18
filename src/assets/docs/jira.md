@@ -12,10 +12,10 @@ version: "3"
 
 services:
     jira:
-        image: cptactionhank/atlassian-jira:7.3.3
+        image: cptactionhank/atlassian-jira:7.7.0
         volumes:
-            - /home/walter/fabriq/jira/jira:/var/atlassian/jira
-            - /home/walter/fabriq/jira/logs:/opt/atlassian/jira/logs
+            - /home/snow/fabriq/jira/jira:/var/atlassian/jira
+            - /home/snow/fabriq/jira/logs:/opt/atlassian/jira/logs
         ports:
             - 8097:8080
         environment:
