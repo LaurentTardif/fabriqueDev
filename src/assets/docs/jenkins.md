@@ -4,7 +4,7 @@ Jenkins
 Official docker image : https://hub.docker.com/_/jenkins/
 
 
-Launch cmd `mkdir -p /home/walter/fabriq/jenkins`, then `sudo chown 1000 /home/walter/fabriq/jenkins` to autorise jenkins to write on the volume. 
+Launch cmd `mkdir -p /home/walter/fabriq/jenkins`, then `sudo chown 1000 /home/walter/fabriq/jenkins` to authorize jenkins to write on the volume. 
 
 * Docker compose :
 
