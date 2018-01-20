@@ -1,9 +1,9 @@
 .top{
   position: absolute;
-  top: 150px;
+  top: 17%;
 }
 .right {
-  right: 50px;
+  right: 5%;
 }
 
 .overlay {
@@ -17,18 +17,18 @@
     visibility: visible;
     opacity: 1;
   }
-  
+
   .popup {
     margin: 150px auto;
     padding: 20px;
     background-color: #292b2c;
     color: white;
     border-radius: 5px;
-    width: 30%;
+    width: 50%;
     position: relative;
     transition: all 5s ease-in-out;
   }
-  
+
   .popup .close {
     position: absolute;
     top: 20px;
@@ -46,8 +46,8 @@
     max-height: 70vh;
     overflow: auto;
   }
-  
-  @media screen and (max-width: 700px){
+
+  @media screen and (max-width: 1024px){
     .box{
       width: 70%;
     }
