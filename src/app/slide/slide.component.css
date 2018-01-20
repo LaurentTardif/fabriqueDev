@@ -1,3 +1,13 @@
+.top{
+  position: absolute;
+  top: 200px;
+}
+.left {
+  left: 50px;
+}
+.carousel-item img{
+  width: 100%;
+}
 .overlay {
     position: fixed;
     top: 0;
@@ -11,12 +21,12 @@
   }
 
   .popup {
-    margin: 70px auto;
+    margin: 30px auto;
     padding: 20px;
     background-color: #292b2c;
     color: white;
     border-radius: 5px;
-    width: 50%;
+    width: 70%;
     position: relative;
     transition: all 5s ease-in-out;
   }
@@ -47,7 +57,3 @@
       width: 70%;
     }
   }
-
-.fullwidth {
-  width: 100%;
-}

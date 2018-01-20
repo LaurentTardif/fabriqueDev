@@ -13,7 +13,6 @@ export class HomeComponent implements OnInit {
   constructor(public _identityService: IdentityService) {
   }
 
-
   open() {
     this.openPopup = true;
   }

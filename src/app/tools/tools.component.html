@@ -5,7 +5,9 @@
 			<markdown [data]='markdown'></markdown>
 		</div>
 		<div class="modal-footer">
-		  <div>{{ message }}</div>
+      <div class="alert alert-dark fullwidth" role="alert">
+        {{ message }}
+      </div>
 		  <button type="button" class="btn btn-primary" (click)="check()">Check</button>
 		</div>
 	</div>

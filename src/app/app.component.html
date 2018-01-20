@@ -1,5 +1,6 @@
 <app-home> </app-home>
 <app-cycle></app-cycle>
+<app-slide> </app-slide>
 <app-piste (onToolClick)="currentTool=$event"></app-piste>
 <app-tools *ngIf="currentTool != null" [toolToOpen]="currentTool" (onClose)="currentTool=null"></app-tools>
 

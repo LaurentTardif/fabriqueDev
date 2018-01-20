@@ -1,0 +1,65 @@
+<div>
+  <div class="top left">
+    <img (click)="open()" width="100px" src="assets/docker.png">
+  </div>
+</div>
+
+<div class="overlay" *ngIf="openPopup">
+	<div class="popup">
+    <a href="#" class="close" (click)="close()">&times;</a>
+    <div class="modal-header">
+      <h4>Slides</h4>
+    </div>
+    <hr/>
+    <div class="modal-body">
+      <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img class="d-block"src="assets/slides/1.svg">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block"src="assets/slides/2.svg">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block"src="assets/slides/3.svg">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block"src="assets/slides/4.svg">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block"src="assets/slides/5.svg">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block"src="assets/slides/6.svg">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block"src="assets/slides/7.svg">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block"src="assets/slides/8.svg">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block"src="assets/slides/9.svg">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block"src="assets/slides/10.svg">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block"src="assets/slides/11.svg">
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="close()">Close</button>
+    </div>
+  </div>
+</div>

@@ -6,7 +6,7 @@
 
 <div class="overlay" *ngIf="openPopup">
 	<div class="popup">
-		<a class="close" (click)="close()">&times;</a>
+    <a href="#" class="close" (click)="close()">&times;</a>
     <div class="modal-header">
       <h4>Settings</h4>
     </div>
@@ -14,28 +14,28 @@
     <div class="modal-body">
       <div class="form-group">
         <label for="ip">Your IP Server</label>
-        <input type="url" [(ngModel)]="_identityService.identity.ciIp" class="form-control" aria-describedby="Ip of your ci"/>
+        <input type="text" [(ngModel)]="_identityService.identity.ciIp" class="form-control" aria-describedby="Ip of your ci"/>
       </div>
       <div class="form-group">
         <label for="ip">Your CI domaine</label>
-        <input type="url" [(ngModel)]="_identityService.identity.ciDomain" class="form-control" aria-describedby="Domain of your ci"/>
+        <input type="text" [(ngModel)]="_identityService.identity.ciDomain" class="form-control" aria-describedby="Domain of your ci"/>
       </div>
       <div *ngIf="_identityService.identity.ciDomain && _identityService.identity.ciIp">
-        <label >You can copy this in your /etc/hosts</label>
+        <label>You can copy this in your /etc/hosts</label>
         <div class="language-shell">
-          {{_identityService.identity.ciIp}} gitlab.{{_identityService.identity.ciDomain}} svn.{{_identityService.identity.ciDomain}} 
-          mercurial.{{_identityService.identity.ciDomain}} bitbucket.{{_identityService.identity.ciDomain}} 
-          jenkins.{{_identityService.identity.ciDomain}} bamboo.{{_identityService.identity.ciDomain}} 
-          teamcity.{{_identityService.identity.ciDomain}} nexus.{{_identityService.identity.ciDomain}} 
-          artifactory.{{_identityService.identity.ciDomain}} verdaccio.{{_identityService.identity.ciDomain}} 
-          dockerhub.{{_identityService.identity.ciDomain}} rundeck.{{_identityService.identity.ciDomain}} 
-          gocd.{{_identityService.identity.ciDomain}} nginx.{{_identityService.identity.ciDomain}} apache.{{_identityService.identity.ciDomain}} 
-          tomcat.{{_identityService.identity.ciDomain}} jetty.{{_identityService.identity.ciDomain}} 
-          websphere.{{_identityService.identity.ciDomain}} sonar.{{_identityService.identity.ciDomain}} 
-          teamscale.{{_identityService.identity.ciDomain}} wekan.{{_identityService.identity.ciDomain}} 
-          jira.{{_identityService.identity.ciDomain}} redmine.{{_identityService.identity.ciDomain}} 
-          mantis.{{_identityService.identity.ciDomain}} nginx.{{_identityService.identity.ciDomain}} 
-          mattermost.{{_identityService.identity.ciDomain}} zulip.{{_identityService.identity.ciDomain}} 
+          {{_identityService.identity.ciIp}} gitlab.{{_identityService.identity.ciDomain}} svn.{{_identityService.identity.ciDomain}}
+          mercurial.{{_identityService.identity.ciDomain}} bitbucket.{{_identityService.identity.ciDomain}}
+          jenkins.{{_identityService.identity.ciDomain}} bamboo.{{_identityService.identity.ciDomain}}
+          teamcity.{{_identityService.identity.ciDomain}} nexus.{{_identityService.identity.ciDomain}}
+          artifactory.{{_identityService.identity.ciDomain}} verdaccio.{{_identityService.identity.ciDomain}}
+          dockerhub.{{_identityService.identity.ciDomain}} rundeck.{{_identityService.identity.ciDomain}}
+          gocd.{{_identityService.identity.ciDomain}} nginx.{{_identityService.identity.ciDomain}} apache.{{_identityService.identity.ciDomain}}
+          tomcat.{{_identityService.identity.ciDomain}} jetty.{{_identityService.identity.ciDomain}}
+          websphere.{{_identityService.identity.ciDomain}} sonar.{{_identityService.identity.ciDomain}}
+          teamscale.{{_identityService.identity.ciDomain}} wekan.{{_identityService.identity.ciDomain}}
+          jira.{{_identityService.identity.ciDomain}} redmine.{{_identityService.identity.ciDomain}}
+          mantis.{{_identityService.identity.ciDomain}} nginx.{{_identityService.identity.ciDomain}}
+          mattermost.{{_identityService.identity.ciDomain}} zulip.{{_identityService.identity.ciDomain}}
           rocketchat.{{_identityService.identity.ciDomain}}
         </div>
       </div>
