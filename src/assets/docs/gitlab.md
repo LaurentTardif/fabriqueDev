@@ -30,4 +30,5 @@ services:
 http://gitlab.{{this.identityService.identity.ciDomain}}/
 
 * Change `root` password
-* New project, git repo by url : https://github.com/norsys/fabriqueDev.git, public project
+* New project => import project => git repo by url : https://github.com/norsys/fabriqueDev.git
+* Set project as public project

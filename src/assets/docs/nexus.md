@@ -3,7 +3,7 @@ Nexus
 
 Official docker image : https://hub.docker.com/r/sonatype/nexus3/
 
-Launch cmd `sudo mkdir -p /home/walter/fabriq/nexus`, then `sudo chown 200 /home/walter/fabriq/nexus` to be autorised to write on the volume.   
+Launch cmd `sudo mkdir -p /home/snow/fabriq/nexus`, then `sudo chown 200 /home/snow/fabriq/nexus` to be autorised to write on the volume.   
 
 * Docker compose :
 
