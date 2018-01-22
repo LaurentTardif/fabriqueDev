@@ -1,4 +1,9 @@
+/.git
 /aws
 /e2e
 /node_modules
 /nginx-proxy
+.env
+Makefile
+README.md
+.gitignore

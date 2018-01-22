@@ -8,6 +8,9 @@ INSTANCE_TYPE := 't2.micro' # recommanded : m5.xlarge
 USER_DATA_FILE := 'aws/user-data.yml'
 MAPPING_FILE := 'aws/mapping.json'
 
+.env:
+	echo "USER_ID=$$(id -u)" > $@
+
 #       _            _
 #      | |          | |
 #    __| | ___   ___| | _____ _ __
@@ -16,7 +19,7 @@ MAPPING_FILE := 'aws/mapping.json'
 #   \__,_|\___/ \___|_|\_\___|_|
 #
 .PHONY: build
-build:
+build: .env
 	@docker-compose build
 
 .PHONY: start
@@ -24,11 +27,11 @@ start: build
 	@docker-compose up -d
 
 .PHONY: bash
-bash:
+bash: .env
 	@docker-compose exec fabriquedev bash
 
 .PHONY: stop
-stop:
+stop: .env
 	@docker-compose stop
 
 .PHONY: remove

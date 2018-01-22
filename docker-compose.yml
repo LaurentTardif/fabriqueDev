@@ -9,6 +9,7 @@ services:
         volumes:
             - /var/run/docker.sock:/tmp/docker.sock:ro
     fabriquedev:
+        user: $USER_ID
         build: .
         environment:
             - VIRTUAL_HOST=fab.snow.ci
