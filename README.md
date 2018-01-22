@@ -1,7 +1,8 @@
-# FabriqueDev
-Emportez votre fabrique de dev
+# Development fabrique
 
-[Candidats à la fabrique](./src/assets/docs/Candidats.md)
+This project is a workshop to create a development frabrique
+
+[Fabrique candidates](./src/assets/docs/Candidats.md)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.
 
