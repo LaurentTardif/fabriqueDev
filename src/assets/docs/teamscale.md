@@ -12,6 +12,7 @@ version: "3"
 services:
     teamscale:
         image: cqse/teamscale:3.9.0
+        restart: always
         volumes:
             - /home/snow/fabriq/teamscale/storage:/opt/teamscale/storage
             - /home/snow/fabriq/teamscale/backup:/backup

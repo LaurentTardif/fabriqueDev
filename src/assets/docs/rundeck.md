@@ -13,6 +13,7 @@ version: "3"
 services:
     rundeck:
         image: jordan/rundeck:2.10.2
+        restart: always
         ports:
             - 8083:4440
         volumes:

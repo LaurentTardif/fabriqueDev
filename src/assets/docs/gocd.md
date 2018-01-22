@@ -12,6 +12,7 @@ version: "3"
 services:
     gocd-server:
         image: gocd/gocd-server:v17.12.0
+        restart: always
         ports:
             - 8093:8153
             - 8094:8154

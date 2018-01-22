@@ -11,6 +11,7 @@ version: "3"
 services:
     verdaccio:
         image: verdaccio/verdaccio:2.7.3
+        restart: always
         container_name: verdaccio
         ports:
             - "8092:4873"

@@ -13,6 +13,7 @@ version: "3"
 services:
     nexus:
         image: sonatype/nexus3:3.7.1
+        restart: always
         volumes:
             - "/home/snow/fabriq/nexus:/nexus-data"
         ports:

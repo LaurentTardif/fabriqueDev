@@ -11,6 +11,7 @@ version: "3"
 services:
     wekan:
         image: mquandalle/wekan:latest
+        restart: always
         ports:
             - 8086:80
         environment:
@@ -21,6 +22,7 @@ services:
 
     wekandb:
         image: mongo:3.2.18
+        restart: always
         container_name: wekan-db
         command: mongod --smallfiles --oplogSize 128
         expose:

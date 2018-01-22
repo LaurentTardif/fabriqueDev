@@ -11,6 +11,7 @@ version: "3"
 services:
     dockerhub:
         image: registry:2.6.2
+        restart: always
         ports:
             - 5000:5000
         environment:

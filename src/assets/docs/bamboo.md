@@ -13,6 +13,7 @@ version: "3"
 services:
     bamboo:
         image: cptactionhank/atlassian-bamboo:6.3.0
+        restart: always
         ports:
             - 8091:8085
         environment:

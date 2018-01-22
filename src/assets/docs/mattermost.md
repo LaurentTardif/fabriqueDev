@@ -11,6 +11,7 @@ version: "3"
 services:
     mattermost:
         image: mattermost/mattermost-preview:4.6
+        restart: always
         ports:
             - 8077:8065
         environment:

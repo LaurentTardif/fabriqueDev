@@ -12,6 +12,7 @@ version: "3"
 services:
   rocketchat:
     image: rocketchat/rocket.chat:latest
+    restart: always
     volumes:
       - /home/snow/fabriq/rocketchat/uploads:/app/uploads
     environment:
@@ -34,6 +35,7 @@ services:
 
   mongo:
     image: mongo:3.2
+    restart: always
     command: mongod --smallfiles --oplogSize 128 --replSet rs0
     labels:
       - "traefik.enable=false"
@@ -42,6 +44,7 @@ services:
   # it will run the command and remove himself (it will not stay running)
   mongo-init-replica:
     image: mongo:3.2
+    restart: always
     command: 'mongo mongo/rocketchat --eval "rs.initiate({ _id: ''rs0'', members: [ { _id: 0, host: ''localhost:27017'' } ]})"'
     depends_on:
       - mongo
@@ -49,6 +52,7 @@ services:
   # hubot, the popular chatbot (add the bot user first and change the password before starting this image)
   hubot:
     image: rocketchat/hubot-rocketchat:latest
+    restart: always
     environment:
       - ROCKETCHAT_URL=rocketchat:3000
       - ROCKETCHAT_ROOM=GENERAL

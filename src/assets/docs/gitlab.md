@@ -12,6 +12,7 @@ version: "3"
 services:
     gitlab:
         image: gitlab/gitlab-ce:10.3.3-ce.0
+        restart: always
         hostname: gitlab.{{this.identityService.identity.ciDomain}}
         ports:
             - 8080:80

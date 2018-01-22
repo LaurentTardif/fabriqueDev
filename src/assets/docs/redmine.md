@@ -11,6 +11,7 @@ version: "3"
 services:
     redminedb:
         image: mariadb
+        restart: always
         environment:
             MYSQL_ROOT_PASSWORD: example
             MYSQL_DATABASE: redmine
@@ -20,6 +21,7 @@ services:
 
     redmine:
         image: redmine
+        restart: always
         ports:
            - 3000:3000
         environment:

@@ -11,6 +11,7 @@ version: "3"
 services:
     mantisbt:
         image: vimagick/mantisbt:latest
+        restart: always
         ports:
             - "8989:80"
         links:
@@ -21,6 +22,7 @@ services:
             - VIRTUAL_PORT=80  
     mysql:
         image: mysql:latest
+        restart: always
         environment:
             - MYSQL_ROOT_PASSWORD=root
             - MYSQL_DATABASE=bugtracker

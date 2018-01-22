@@ -11,6 +11,7 @@ version: "3"
 services:
     database:
         image: "quay.io/galexrt/postgres-zulip-tsearchextras:latest"
+        restart: always
         environment:
             POSTGRES_DB: zulip
             POSTGRES_USER: zulip
@@ -32,11 +33,13 @@ services:
  
     redis:
         image: "quay.io/sameersbn/redis:latest"
+        restart: always
         volumes:
             - "/home/snow/fabriq/zulip/redis:/var/lib/redis:rw"
 
     zulip:
         image: "quay.io/galexrt/zulip:1.5.1-5"
+        restart: always
         ports:
             - "8383:80"
             - "7443:443"

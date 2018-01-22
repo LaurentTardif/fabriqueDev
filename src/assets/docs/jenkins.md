@@ -14,6 +14,7 @@ version: "3"
 services:
     jenkins:
         image: jenkins/jenkins:2.102
+        restart: always
         ports:
             - 8081:8080
             - 50000:50000
