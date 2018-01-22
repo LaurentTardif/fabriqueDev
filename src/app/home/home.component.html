@@ -23,7 +23,7 @@
       <div *ngIf="_identityService.identity.ciDomain && _identityService.identity.ciIp">
         <label>You can copy this in your /etc/hosts</label>
         <div class="language-shell">
-          {{_identityService.identity.ciIp}} gitlab.{{_identityService.identity.ciDomain}} svn.{{_identityService.identity.ciDomain}}
+          {{_identityService.identity.ciIp}} fab.{{_identityService.identity.ciDomain}} gitlab.{{_identityService.identity.ciDomain}} svn.{{_identityService.identity.ciDomain}}
           mercurial.{{_identityService.identity.ciDomain}} bitbucket.{{_identityService.identity.ciDomain}}
           jenkins.{{_identityService.identity.ciDomain}} bamboo.{{_identityService.identity.ciDomain}}
           teamcity.{{_identityService.identity.ciDomain}} nexus.{{_identityService.identity.ciDomain}}

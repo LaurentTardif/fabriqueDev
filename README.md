@@ -5,32 +5,116 @@ Emportez votre fabrique de dev
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.
 
-## Development server
+## Quick start
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+*Requirements*
 
-## Code scaffolding
+- docker
+- docker-compose
+
+Create `docker-composer.yml`
+```
+version: '3'
+services:
+    nginx-proxy:
+        image: jwilder/nginx-proxy
+        restart: always
+        environment:
+            - DEFAULT_HOST=fab.snow.ci
+        ports:
+            - "80:80"
+        volumes:
+            - /var/run/docker.sock:/tmp/docker.sock:ro
+    fabriquedev:
+        image: norsys/fabriquedev:latest
+        restart: always
+        environment:
+            - VIRTUAL_HOST=fab.snow.ci
+            
+    # Put your tools below
+```
+
+Start fabrique
+
+```
+$ docker-compose up -d
+```
+
+*Go to http://localhost*
+
+## Deploy to EC2
+
+Replace `<your-security-group>` by a valid security group with port 80 and 22 allowed
+
+```
+$ aws ec2 run-instances \
+    --image-id ami-4262d53f \
+    --count 1 \
+    --instance-type m3.xlarge \
+    --user-data https://raw.githubusercontent.com/norsys/fabriqueDev/master/aws/userdata.yml \
+    --security-groups <your-security-group> \
+    --block-device-mappings https://raw.githubusercontent.com/norsys/fabriqueDev/master/aws/mapping.json
+```
+
+*Access to fabrique with `http://<public-ip>`*
+
+*Connect on your instance with ssh:*
+- user `snow`
+- password `camp`
+
+## Development
+
+### Development server
+
+Run `npm run start` for a start project on local. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+### Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+### Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Run `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
-## Running unit tests
+### Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+### Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Run `npm run e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Further help
+### Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-# Deploy VM to EC2
-aws ec2 run-instances --image-id ami-46f02029 --count 1 --instance-type m3.xlarge --security-groups snowcamp --user-data file://./user-data.yml --block-device-mappings file://mapping.json
+### Use docker
 
-# Build docker
-docker build -t snowcamp .
+*Requirements*
+
+- docker
+- docker-compose
+
+
+```
+make build
+make start
+make stop
+make remove
+```
+
+### Deploy latest docker image online to EC2 instance
+
+```
+make aws-run-instances \
+    AWS_ACCESS_KEY_ID=<your-access-key-id> \
+    AWS_SECRET_ACCESS_KEY=<your-secret-access-key> \
+    AWS_DEFAULT_REGION=<your-default-region> \
+    SECURITY_GROUPS=<your-default-region>
+```
+
+*Security group must allowed port 80 and 22*
+
+*Connect with ssh:*
+- user `snow`
+- password `camp`

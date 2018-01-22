@@ -1,0 +1,73 @@
+#cloud-config
+
+# Add docker repository
+apt:
+  preserve_sources_list: true
+  sources:
+    docker:
+      keyid: 0EBFCD88
+      source: "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
+
+# Update packages list and upgrade all packages
+package_update: true
+package_upgrade: all
+
+# Install requirements, zsh and docker
+packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - software-properties-common
+  - zsh
+  - docker-ce
+
+# Create user to acces with ssh
+ssh_pwauth: yes
+users:
+  - name: "snow"
+    shell: /bin/zsh
+    groups:
+      - "sudo"
+      - "docker"
+chpasswd:
+  list:
+    - snow:camp
+  expire: False
+
+write_files:
+  - owner: snow:snow
+    content: |
+      version: '3'
+      services:
+          nginx-proxy:
+              image: jwilder/nginx-proxy
+              restart: always
+              environment:
+                  - DEFAULT_HOST=fab.snow.ci
+              ports:
+                  - "80:80"
+              volumes:
+                  - /var/run/docker.sock:/tmp/docker.sock:ro
+          fabriquedev:
+              image: norsys/fabriquedev:latest
+              restart: always
+              environment:
+                  - VIRTUAL_HOST=fab.snow.ci
+
+          # Put your tools below
+    path: "/home/snow/docker-compose.yml"
+
+# Install docker-compose, start fabriquedev tool at first boot, fix permissions and install oh-my-zqh
+runcmd:
+  - curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+  - chmod +x /usr/local/bin/docker-compose
+  - cd /home/snow && docker-compose up -d
+  - chown -R snow:snow /home/snow
+  - su - snow -c 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"'
+
+# Reboot to enable docker
+power_state:
+  delay: "now"
+  mode: reboot
+  message: First reboot
+  condition: True
