@@ -1,7 +1,7 @@
 version: '3'
 services:
     nginx-proxy:
-        image: jwilder/nginx-proxy
+        build: ./nginx-proxy
         environment:
             - DEFAULT_HOST=fab.snow.ci
         ports:

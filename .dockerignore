@@ -1,3 +1,4 @@
 /aws
 /e2e
 /node_modules
+/nginx-proxy

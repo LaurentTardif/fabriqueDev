@@ -18,7 +18,7 @@ Create `docker-composer.yml`
 version: '3'
 services:
     nginx-proxy:
-        image: jwilder/nginx-proxy
+        image: norsys/fabriquedev-nginx-proxy:latest
         restart: always
         environment:
             - DEFAULT_HOST=fab.snow.ci
