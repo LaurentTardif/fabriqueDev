@@ -19,19 +19,19 @@ MAPPING_FILE := 'aws/mapping.json'
 #   \__,_|\___/ \___|_|\_\___|_|
 #
 .PHONY: build
-build: .env
+build:
 	@docker-compose build
 
 .PHONY: start
 start: build
-	@docker-compose up -d
+	@docker-compose up -d nginx-proxy fabriquedev
 
 .PHONY: bash
 bash: .env
-	@docker-compose exec fabriquedev bash
+	@docker-compose run --rm bash
 
 .PHONY: stop
-stop: .env
+stop:
 	@docker-compose stop
 
 .PHONY: remove
