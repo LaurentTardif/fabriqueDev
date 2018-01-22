@@ -23,6 +23,10 @@ build:
 start: build
 	@docker-compose up -d
 
+.PHONY: bash
+bash:
+	@docker-compose exec fabriquedev bash
+
 .PHONY: stop
 stop:
 	@docker-compose stop

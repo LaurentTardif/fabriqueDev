@@ -100,6 +100,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ```
 make build
 make start
+make bash # Use to launch npm and ng commands
 make stop
 make remove
 ```
