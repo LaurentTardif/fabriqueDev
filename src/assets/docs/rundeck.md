@@ -12,11 +12,9 @@ version: "3"
 
 services:
     rundeck:
-        image: jordan/rundeck:2.10.2
+        image: jordan/rundeck:2.10.4
         user: root
         restart: always
-        ports:
-            - 8083:4440
         volumes:
             - /home/snow/fabriq/rundeck/etc:/etc/rundeck
             - /home/snow/fabriq/rundeck/var:/var/rundeck
@@ -27,7 +25,7 @@ services:
             - /home/snow/fabriq/shared:/tmp/fabriq/shared
         environment:
             - RUNDECK_ADMIN_PASSWORD=admin
-            - SERVER_URL=http://localhost:8083
+            - EXTERNAL_SERVER_URL=http://rundeck.{{this.identityService.identity.ciDomain}}
             - VIRTUAL_HOST=rundeck.{{this.identityService.identity.ciDomain}}
             - VIRTUAL_PORT=4440  
 ```
