@@ -51,7 +51,7 @@ Replace `<your-security-group>` by a valid security group with port 80 and 22 al
 $ aws ec2 run-instances \
     --image-id ami-4262d53f \
     --count 1 \
-    --instance-type m3.xlarge \
+    --instance-type m5.xlarge \
     --user-data https://raw.githubusercontent.com/norsys/fabriqueDev/master/aws/userdata.yml \
     --security-groups <your-security-group> \
     --block-device-mappings https://raw.githubusercontent.com/norsys/fabriqueDev/master/aws/mapping.json

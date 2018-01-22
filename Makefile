@@ -4,7 +4,7 @@ AWS_DEFAULT_REGION := 'eu-west-3'
 SECURITY_GROUPS := 'snowcamp'
 IMAGE_ID := 'ami-4262d53f' # ubuntu 14.04 LTS amazon official
 NUMBER_INSTANCES := 1
-INSTANCE_TYPE := 't2.micro' # recommanded : m3.xlarge
+INSTANCE_TYPE := 't2.micro' # recommanded : m5.xlarge
 USER_DATA_FILE := 'aws/user-data.yml'
 MAPPING_FILE := 'aws/mapping.json'
 
