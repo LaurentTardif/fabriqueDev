@@ -14,6 +14,7 @@ version: "3"
 services:
     mercurial:
         image: miguillo/mercurial-server:20160708-1
+        user: root
         restart: always
         ports:
             - 8100:2222

@@ -4,8 +4,6 @@ Jenkins
 Official docker image : https://hub.docker.com/r/jenkins/jenkins/
 
 
-Launch cmd `mkdir -p /home/snow/fabriq/jenkins`, then `sudo chown 1000 /home/snow/fabriq/jenkins` to authorize jenkins to write on the volume. 
-
 * Docker compose :
 
 ```yml
@@ -14,6 +12,7 @@ version: "3"
 services:
     jenkins:
         image: jenkins/jenkins:2.102
+        user: root
         restart: always
         ports:
             - 8081:8080

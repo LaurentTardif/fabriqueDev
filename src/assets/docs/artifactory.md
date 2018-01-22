@@ -12,6 +12,7 @@ version: "3"
 services:
     artifactory:
         image: docker.bintray.io/jfrog/artifactory-oss:5.8.3
+        user: root
         restart: always
         ports:
             - 8092:8081

@@ -11,6 +11,7 @@ version: "3"
 services:
     database:
         image: "quay.io/galexrt/postgres-zulip-tsearchextras:latest"
+        user: root
         restart: always
         environment:
             POSTGRES_DB: zulip
@@ -21,10 +22,12 @@ services:
 
     memcached:
         image: "quay.io/sameersbn/memcached:latest"
+        user: root
         restart: always
 
     rabbitmq:
         image: "rabbitmq:3.5.5"
+        user: root
         hostname: zulip-rabbit
         restart: always
         environment:
@@ -33,12 +36,14 @@ services:
  
     redis:
         image: "quay.io/sameersbn/redis:latest"
+        user: root
         restart: always
         volumes:
             - "/home/snow/fabriq/zulip/redis:/var/lib/redis:rw"
 
     zulip:
         image: "quay.io/galexrt/zulip:1.5.1-5"
+        user: root
         restart: always
         ports:
             - "8383:80"

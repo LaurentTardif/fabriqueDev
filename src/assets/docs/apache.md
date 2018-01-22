@@ -12,6 +12,7 @@ version: "3"
 services:
     httpd:
         image: httpd:2.4.29
+        user: root
         restart: always
         ports:
             - 8095:80

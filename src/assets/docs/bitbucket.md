@@ -13,6 +13,7 @@ version: "3"
 services:
     bitbucket:
         image: cptactionhank/atlassian-bitbucket:4.14.4
+        user: root
         restart: always
         volumes:
             - /home/snow/fabriq/bitbucket/home:/var/atlassian/bitbucket

@@ -11,6 +11,7 @@ version: "3"
 services:
     nginx:
         image: nginx:1.13.8
+        user: root
         restart: always
         ports:
             - 8084:80

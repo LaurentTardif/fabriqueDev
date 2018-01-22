@@ -12,6 +12,7 @@ version: "3"
 services:
      teamcity:
         image: jetbrains/teamcity-server:2017.2.1
+        user: root
         restart: always
         volumes:
             - /home/snow/fabriq/teamcity/home:/data/teamcity_server/datadir

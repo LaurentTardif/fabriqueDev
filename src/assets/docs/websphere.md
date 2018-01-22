@@ -11,6 +11,7 @@ version: "3"
 services:
     websphere:
         image: websphere-liberty:webProfile7
+        user: root
         restart: always
         ports:
             - 9080:9080

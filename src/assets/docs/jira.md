@@ -13,6 +13,7 @@ version: "3"
 services:
     jira:
         image: cptactionhank/atlassian-jira:7.7.0
+        user: root
         restart: always
         volumes:
             - /home/snow/fabriq/jira/jira:/var/atlassian/jira

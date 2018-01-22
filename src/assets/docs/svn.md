@@ -11,6 +11,7 @@ version: "3"
 services:
     svn:
         image: marvambass/subversion
+        user: root
         restart: always
         ports:
             - 8090:80

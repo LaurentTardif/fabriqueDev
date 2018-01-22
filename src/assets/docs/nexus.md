@@ -2,8 +2,7 @@ Nexus
 ============
 
 Official docker image : https://hub.docker.com/r/sonatype/nexus3/
-
-Launch cmd `sudo mkdir -p /home/snow/fabriq/nexus`, then `sudo chown 200 /home/snow/fabriq/nexus` to be autorised to write on the volume.   
+ 
 
 * Docker compose :
 
@@ -13,6 +12,7 @@ version: "3"
 services:
     nexus:
         image: sonatype/nexus3:3.7.1
+        user: root
         restart: always
         volumes:
             - "/home/snow/fabriq/nexus:/nexus-data"

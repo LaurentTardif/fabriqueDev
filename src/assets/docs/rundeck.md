@@ -13,6 +13,7 @@ version: "3"
 services:
     rundeck:
         image: jordan/rundeck:2.10.2
+        user: root
         restart: always
         ports:
             - 8083:4440

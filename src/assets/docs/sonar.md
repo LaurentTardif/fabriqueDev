@@ -12,6 +12,7 @@ version: "3"
 services:
     sonarqube:
         image: sonarqube:6.7.1
+        user: root
         restart: always
         ports:
             - 8085:9000

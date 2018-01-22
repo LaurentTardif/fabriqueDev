@@ -12,6 +12,7 @@ version: "3"
 services:
   rocketchat:
     image: rocketchat/rocket.chat:latest
+    user: root
     restart: always
     volumes:
       - /home/snow/fabriq/rocketchat/uploads:/app/uploads
@@ -35,6 +36,7 @@ services:
 
   mongo:
     image: mongo:3.2
+    user: root
     restart: always
     command: mongod --smallfiles --oplogSize 128 --replSet rs0
     labels:
@@ -44,6 +46,7 @@ services:
   # it will run the command and remove himself (it will not stay running)
   mongo-init-replica:
     image: mongo:3.2
+    user: root
     restart: always
     command: 'mongo mongo/rocketchat --eval "rs.initiate({ _id: ''rs0'', members: [ { _id: 0, host: ''localhost:27017'' } ]})"'
     depends_on:
@@ -52,6 +55,7 @@ services:
   # hubot, the popular chatbot (add the bot user first and change the password before starting this image)
   hubot:
     image: rocketchat/hubot-rocketchat:latest
+    user: root
     restart: always
     environment:
       - ROCKETCHAT_URL=rocketchat:3000
@@ -73,6 +77,7 @@ services:
 
   #traefik:
   #  image: traefik:latest
+  #  user: root
   #  restart: unless-stopped
   #  command: traefik --docker --acme=true --acme.domains='your.domain.tld' --acme.email='your@email.tld' --acme.entrypoint=https --acme.storagefile=acme.json --defaultentrypoints=http --defaultentrypoints=https --entryPoints='Name:http Address::80 Redirect.EntryPoint:https' --entryPoints='Name:https Address::443 TLS.Certificates:'
   #  ports:

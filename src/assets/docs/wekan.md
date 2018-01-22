@@ -11,6 +11,7 @@ version: "3"
 services:
     wekan:
         image: mquandalle/wekan:latest
+        user: root
         restart: always
         ports:
             - 8086:80

@@ -11,6 +11,7 @@ version: "3"
 services:
     tomcat:
         image: tomcat:9.0.2
+        user: root
         restart: always
         ports:
             - 9090:8080

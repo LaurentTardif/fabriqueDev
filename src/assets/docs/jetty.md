@@ -11,6 +11,7 @@ version: "3"
 services:
     jetty:
         image: jetty:9.4.7
+        user: root
         restart: always
         ports:
             - 8087:8080
