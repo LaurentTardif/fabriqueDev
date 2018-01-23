@@ -29,7 +29,7 @@ services:
 
 * Connect to : http://sonar.{{this.identityService.identity.ciDomain}}/
 * Admin credentials are : admin/admin
-* Install SonarJs plugin (don't forget to restart sonarqube : `docker-compose start/stop sonarqube`)
+* Install SonarTS plugin (don't forget to restart sonarqube : `docker-compose start/stop sonarqube`)
 
 Configure Jenkins :
 * Install plugin `SonarQube Scanner for Jenkins`
@@ -42,7 +42,7 @@ Configure project :
 sonar.projectKey=fr.snowcamp:fabriq
 sonar.projectName=Snowcamp :: Ma fabrique de neige
 sonar.projectVersion=1.0  
-sonar.language=js 
+sonar.language=ts 
 sonar.sources=src 
 sonar.sourceEncoding=UTF-8
 
