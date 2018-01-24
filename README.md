@@ -20,8 +20,6 @@ services:
     nginx-proxy:
         image: norsys/fabriquedev-nginx-proxy:latest
         restart: always
-        environment:
-            - DEFAULT_HOST=fab.snow.ci
         ports:
             - "80:80"
         volumes:
@@ -39,6 +37,12 @@ Start fabrique
 
 ```
 $ docker-compose up -d
+```
+
+Add `127.0.0.1 fab.snow.ci` to /etc/hosts
+
+```
+$ sudo echo "127.0.0.1 fab.snow.ci" >> /etc/hosts
 ```
 
 *Go to http://localhost*
