@@ -11,7 +11,7 @@ version: "3"
 
 services:
     jenkins:
-        image: jenkins/jenkins:2.102
+        image: jenkins/jenkins:2.103
         user: root
         restart: always
         ports:
