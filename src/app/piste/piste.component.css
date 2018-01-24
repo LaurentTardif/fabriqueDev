@@ -13,3 +13,11 @@
 .activated{
     opacity: 1;
 }
+
+.top{
+  position: absolute;
+  top: 17%;
+}
+.left {
+  left: 20%;
+}

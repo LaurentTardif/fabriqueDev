@@ -36,4 +36,11 @@ export class IdentityService {
     }
   }
 
+  isFilledUp(): boolean {
+    return this.identity.ci && this.identity.communication
+      && this.identity.ops && this.identity.server && this.identity.scm
+      && this.identity.repo && this.identity.organization
+      && this.identity.quality;
+  }
+
 }

@@ -26,4 +26,8 @@ export class PisteComponent implements OnInit {
     return health != undefined && health;
   }
 
+  displayKube(): boolean {
+    return this._identityService.isFilledUp();
+  }
+
 }
