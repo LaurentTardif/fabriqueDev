@@ -13,7 +13,7 @@ services:
         environment:
             - VIRTUAL_HOST=fab.snow.ci
         #volumes:
-        #    - .:/src
+        #    - .:/frontend/src
     gitlab:
         image: gitlab/gitlab-ce:10.3.3-ce.0
         user: root
@@ -36,3 +36,90 @@ services:
         build: .
         volumes:
             - .:/src
+    jenkins:
+        image: jenkins/jenkins:2.103
+        user: root
+        restart: always
+        ports:
+            - 8081:8080
+            - 50000:50000
+        environment:
+            - VIRTUAL_HOST=jenkins.snow.ci
+            - VIRTUAL_PORT=8080              
+        volumes:
+            - /home/snow/fabriq/jenkins:/var/jenkins_home
+    nexus:
+        image: sonatype/nexus3:3.7.1
+        user: root
+        restart: always
+        volumes:
+            - "/home/snow/fabriq/nexus:/nexus-data"
+        ports:
+            - 8082:8081 
+        environment:
+            - VIRTUAL_HOST=nexus.snow.ci
+            - VIRTUAL_PORT=8081
+    sonarqube:
+        image: sonarqube:6.7.1
+        user: root
+        restart: always
+        ports:
+            - 8085:9000
+        environment:
+            - VIRTUAL_HOST=sonar.snow.ci
+            - VIRTUAL_PORT=9000  
+        volumes:
+            - /home/snow/fabriq/sonarqube/conf:/opt/sonarqube/conf
+            - /home/snow/fabriq/sonarqube/data:/opt/sonarqube/data
+            - /home/snow/fabriq/sonarqube/extensions:/opt/sonarqube/extensions
+            - /home/snow/fabriq/sonarqube/bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+    rundeck:
+        image: jordan/rundeck:2.10.4
+        user: root
+        restart: always
+        volumes:
+            - /home/snow/fabriq/rundeck/etc:/etc/rundeck
+            - /home/snow/fabriq/rundeck/var:/var/rundeck
+            - /home/snow/fabriq/rundeck/varlog:/var/log/rundeck
+            - /home/snow/fabriq/rundeck/plugins:/opt/rundeck-plugins
+            - /home/snow/fabriq/rundeck/log:/var/lib/rundeck/logs
+            - /home/snow/fabriq/rundeck/data:/var/lib/rundeck/var/storage
+            - /home/snow/fabriq/shared:/tmp/fabriq/shared
+        environment:
+            - RUNDECK_ADMIN_PASSWORD=admin
+            - EXTERNAL_SERVER_URL=http://rundeck.snow.ci
+            - VIRTUAL_HOST=rundeck.snow.ci
+            - VIRTUAL_PORT=4440
+    nginx:
+        image: nginx:1.13.8
+        user: root
+        restart: always
+        ports:
+            - 8084:80
+        environment:
+            - VIRTUAL_HOST=nginx.snow.ci
+            - VIRTUAL_PORT=80            
+        volumes:
+            - /home/snow/fabriq/shared:/usr/share/nginx/html
+    jira:
+        image: cptactionhank/atlassian-jira:7.7.0
+        user: root
+        restart: always
+        volumes:
+            - /home/snow/fabriq/jira/jira:/var/atlassian/jira
+            - /home/snow/fabriq/jira/logs:/opt/atlassian/jira/logs
+        ports:
+            - 8097:8080
+        environment:
+            - VIRTUAL_HOST=jira.snow.ci
+            - VIRTUAL_PORT=8080
+    mattermost:
+        image: mattermost/mattermost-preview:4.6
+        user: root
+        restart: always
+        ports:
+            - 8077:8065
+        environment:
+            - VIRTUAL_HOST=mattermost.snow.ci
+            - VIRTUAL_PORT=8065
+
