@@ -1,6 +1,11 @@
 # Development fabrique
 
-This project is a workshop to create a development frabrique
+This project is a workshop to create a development frabrique. It's based on the session presented at the snowcamp
+by : @cedvanet and @StalinAntoine 
+
+
+
+
 
 [Fabrique candidates](./src/assets/docs/Candidats.md)
 
@@ -18,14 +23,14 @@ Create `docker-composer.yml`
 version: '3'
 services:
     nginx-proxy:
-        image: norsys/fabriquedev-nginx-proxy:latest
+        image: fabriquedev-nginx-proxy:latest
         restart: always
         ports:
             - "80:80"
         volumes:
             - /var/run/docker.sock:/tmp/docker.sock:ro
     fabriquedev:
-        image: norsys/fabriquedev:latest
+        image: fabriquedev:latest
         restart: always
         environment:
             - VIRTUAL_HOST=fab.snow.ci
@@ -56,9 +61,9 @@ $ aws ec2 run-instances \
     --image-id ami-4262d53f \
     --count 1 \
     --instance-type m5.xlarge \
-    --user-data https://raw.githubusercontent.com/norsys/fabriqueDev/master/aws/userdata.yml \
+    --user-data https://raw.githubusercontent.com/xxxx/fabriqueDev/master/aws/userdata.yml \
     --security-groups <your-security-group> \
-    --block-device-mappings https://raw.githubusercontent.com/norsys/fabriqueDev/master/aws/mapping.json
+    --block-device-mappings https://raw.githubusercontent.com/xxxxx/fabriqueDev/master/aws/mapping.json
 ```
 
 *Access to fabrique with `http://<public-ip>`*
@@ -120,7 +125,3 @@ make aws-run-instances \
 ```
 
 *Security group must allowed port 80 and 22*
-
-*Connect with ssh:*
-- user `snow`
-- password `camp`

@@ -1,4 +1,14 @@
 version: '3'
+
+networks:
+  fabriq_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      -
+        subnet: 172.8.0.0/16
+        #gateway: 172.8.0.1
 services:
     nginx-proxy:
         build: ./nginx-proxy
@@ -6,12 +16,18 @@ services:
             - DEFAULT_HOST=fab.snow.ci
         ports:
             - "80:80"
+        networks:
+          fabriq_net:
+            ipv4_address: 172.8.0.2
         volumes:
             - /var/run/docker.sock:/tmp/docker.sock:ro
     fabriquedev:
         build: .
         environment:
             - VIRTUAL_HOST=fab.snow.ci
+        networks:
+          fabriq_net:
+            ipv4_address: 172.8.0.3
         #volumes:
         #    - .:/frontend/src
     gitlab:
@@ -29,13 +45,18 @@ services:
             - /home/snow/fabriq/gitlab/config:/etc/gitlab 
             - /home/snow/fabriq/gitlab/logs:/var/log/gitlab 
             - /home/snow/fabriq/gitlab/data:/var/opt/gitlab
-
+        networks:
+          fabriq_net:
+            ipv4_address: 172.8.0.4
     bash:
         user: $USER_ID
         command: bash
         build: .
         volumes:
             - .:/src
+        networks:
+          fabriq_net:
+            ipv4_address: 172.8.0.5
     jenkins:
         image: jenkins/jenkins:2.103
         user: root
@@ -48,6 +69,9 @@ services:
             - VIRTUAL_PORT=8080              
         volumes:
             - /home/snow/fabriq/jenkins:/var/jenkins_home
+        networks:
+          fabriq_net:
+            ipv4_address: 172.8.0.6
     nexus:
         image: sonatype/nexus3:3.7.1
         user: root
@@ -59,6 +83,9 @@ services:
         environment:
             - VIRTUAL_HOST=nexus.snow.ci
             - VIRTUAL_PORT=8081
+        networks:
+          fabriq_net:
+            ipv4_address: 172.8.0.7
     sonarqube:
         image: sonarqube:6.7.1
         user: root
@@ -73,6 +100,9 @@ services:
             - /home/snow/fabriq/sonarqube/data:/opt/sonarqube/data
             - /home/snow/fabriq/sonarqube/extensions:/opt/sonarqube/extensions
             - /home/snow/fabriq/sonarqube/bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+        networks:
+          fabriq_net:
+            ipv4_address: 172.8.0.8
     rundeck:
         image: jordan/rundeck:2.10.4
         user: root
@@ -90,6 +120,9 @@ services:
             - EXTERNAL_SERVER_URL=http://rundeck.snow.ci
             - VIRTUAL_HOST=rundeck.snow.ci
             - VIRTUAL_PORT=4440
+        networks:
+          fabriq_net:
+            ipv4_address: 172.8.0.9
 #    nginx:
 #        image: nginx:1.13.8
 #        user: root
@@ -102,17 +135,20 @@ services:
 #        volumes:
 #            - /home/snow/fabriq/shared:/usr/share/nginx/html
     jira:
-       image: cptactionhank/atlassian-jira:7.7.0
-       user: root
-       restart: always
-       volumes:
+        image: cptactionhank/atlassian-jira:7.7.0
+        user: root
+        restart: always
+        volumes:
            - /home/snow/fabriq/jira/jira:/var/atlassian/jira
            - /home/snow/fabriq/jira/logs:/opt/atlassian/jira/logs
-       ports:
+        ports:
            - 8097:8080
-       environment:
+        environment:
            - VIRTUAL_HOST=jira.snow.ci
            - VIRTUAL_PORT=8080
+        networks:
+          fabriq_net:
+            ipv4_address: 172.8.0.10
     mattermost:
         image: mattermost/mattermost-preview:4.6
         user: root
@@ -122,4 +158,6 @@ services:
         environment:
             - VIRTUAL_HOST=mattermost.snow.ci
             - VIRTUAL_PORT=8065
-
+        networks:
+          fabriq_net:
+            ipv4_address: 172.8.0.11
