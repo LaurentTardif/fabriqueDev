@@ -90,29 +90,29 @@ services:
             - EXTERNAL_SERVER_URL=http://rundeck.snow.ci
             - VIRTUAL_HOST=rundeck.snow.ci
             - VIRTUAL_PORT=4440
-    nginx:
-        image: nginx:1.13.8
-        user: root
-        restart: always
-        ports:
-            - 8084:80
-        environment:
-            - VIRTUAL_HOST=nginx.snow.ci
-            - VIRTUAL_PORT=80            
-        volumes:
-            - /home/snow/fabriq/shared:/usr/share/nginx/html
+#    nginx:
+#        image: nginx:1.13.8
+#        user: root
+#        restart: always
+#        ports:
+#            - 8084:80
+#        environment:
+#            - VIRTUAL_HOST=nginx.snow.ci
+#            - VIRTUAL_PORT=80            
+#        volumes:
+#            - /home/snow/fabriq/shared:/usr/share/nginx/html
     jira:
-        image: cptactionhank/atlassian-jira:7.7.0
-        user: root
-        restart: always
-        volumes:
-            - /home/snow/fabriq/jira/jira:/var/atlassian/jira
-            - /home/snow/fabriq/jira/logs:/opt/atlassian/jira/logs
-        ports:
-            - 8097:8080
-        environment:
-            - VIRTUAL_HOST=jira.snow.ci
-            - VIRTUAL_PORT=8080
+       image: cptactionhank/atlassian-jira:7.7.0
+       user: root
+       restart: always
+       volumes:
+           - /home/snow/fabriq/jira/jira:/var/atlassian/jira
+           - /home/snow/fabriq/jira/logs:/opt/atlassian/jira/logs
+       ports:
+           - 8097:8080
+       environment:
+           - VIRTUAL_HOST=jira.snow.ci
+           - VIRTUAL_PORT=8080
     mattermost:
         image: mattermost/mattermost-preview:4.6
         user: root
