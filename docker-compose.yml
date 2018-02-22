@@ -200,6 +200,9 @@ services:
         environment:
             - VIRTUAL_HOST=mattermost.snow.ci
             - VIRTUAL_PORT=8065
+        #volumes:
+            #- /home/snow/fabriq/mattermost/data:/mm/mattermost/mattermost-data
+            #- /home/snow/fabriq/mattermost/config:/mm/mattermost/config
         networks:
           fabriq_net:
             ipv4_address: 172.8.0.11
