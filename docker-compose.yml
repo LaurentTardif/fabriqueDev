@@ -10,17 +10,31 @@ networks:
         subnet: 172.8.0.0/16
         #gateway: 172.8.0.1
 services:
-    nginx-proxy:
-        build: ./nginx-proxy
+    #nginx-proxy:
+    #    build: ./nginx-proxy
+    #    environment:
+    #        - DEFAULT_HOST=fab.snow.ci
+    #    ports:
+    #        - "80:80"
+    #    networks:
+    #      fabriq_net:
+    #        ipv4_address: 172.8.0.2
+    #    volumes:
+    #        - /var/run/docker.sock:/tmp/docker.sock:ro
+    traefik:
+        image: traefik
         environment:
             - DEFAULT_HOST=fab.snow.ci
+        command: --api --docker --logLevel=DEBUG
         ports:
             - "80:80"
+            - "8000:8080"
         networks:
           fabriq_net:
             ipv4_address: 172.8.0.2
         volumes:
-            - /var/run/docker.sock:/tmp/docker.sock:ro
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+            - ./traefik/traefik.toml/:/etc/traefik/traefik.toml
     fabriquedev:
         build: ./frontend/
         environment:
@@ -28,8 +42,10 @@ services:
         networks:
           fabriq_net:
             ipv4_address: 172.8.0.3
-        #volumes:
-        #    - .:/frontend/src
+        labels:
+           - "traefik.docker.network=fabriq_net"
+           - "traefik.backend=fabriquedev"
+           - "traefik.frontend.rule=Host:fab.snow.ci"
     gitlab:
         image: gitlab/gitlab-ce:10.3.3-ce.0
         user: root
@@ -48,15 +64,19 @@ services:
         networks:
           fabriq_net:
             ipv4_address: 172.8.0.4
-    bash:
-        user: $USER_ID
-        command: bash
-        build: ./frontend
-        volumes:
-            - .:/src
-        networks:
-          fabriq_net:
-            ipv4_address: 172.8.0.5
+        labels:
+           - "traefik.docker.network=fabriq_net"
+           - "traefik.backend=gitlab"
+           - "traefik.frontend.rule=Host:gitlab.snow.ci"
+    #bash:
+    #    user: $USER_ID
+    #    command: bash
+    #    build: ./frontend
+    #    volumes:
+    #        - .:/src
+    #    networks:
+    #      fabriq_net:
+    #        ipv4_address: 172.8.0.5
     jenkins:
         image: jenkins/jenkins:2.103
         user: root
@@ -72,6 +92,10 @@ services:
         networks:
           fabriq_net:
             ipv4_address: 172.8.0.6
+        labels:
+           - "traefik.docker.network=fabriq_net"
+           - "traefik.backend=jenkins"
+           - "traefik.frontend.rule=Host:jenkins.snow.ci"
     nexus:
         image: sonatype/nexus3:3.7.1
         user: root
@@ -86,6 +110,10 @@ services:
         networks:
           fabriq_net:
             ipv4_address: 172.8.0.7
+        labels:
+           - "traefik.docker.network=fabriq_net"
+           - "traefik.backend=nexus"
+           - "traefik.frontend.rule=Host:nexus.snow.ci"
     sonarqube:
         image: sonarqube:6.7.1
         user: root
@@ -103,10 +131,16 @@ services:
         networks:
           fabriq_net:
             ipv4_address: 172.8.0.8
+        labels:
+           - "traefik.docker.network=fabriq_net"
+           - "traefik.backend=sonarqube"
+           - "traefik.frontend.rule=Host:sonarqube.snow.ci"
     rundeck:
         image: jordan/rundeck:2.10.4
         user: root
         restart: always
+        ports:
+            - 4440:4440
         volumes:
             - /home/snow/fabriq/rundeck/etc:/etc/rundeck
             - /home/snow/fabriq/rundeck/var:/var/rundeck
@@ -123,6 +157,10 @@ services:
         networks:
           fabriq_net:
             ipv4_address: 172.8.0.9
+        labels:
+           - "traefik.docker.network=fabriq_net"
+           - "traefik.backend=rundeck"
+           - "traefik.frontend.rule=Host:rundeck.snow.ci"
 #    nginx:
 #        image: nginx:1.13.8
 #        user: root
@@ -149,6 +187,10 @@ services:
         networks:
           fabriq_net:
             ipv4_address: 172.8.0.10
+        labels:
+           - "traefik.docker.network=fabriq_net"
+           - "traefik.backend=jira"
+           - "traefik.frontend.rule=Host:jira.snow.ci"
     mattermost:
         image: mattermost/mattermost-preview:4.6
         user: root
@@ -161,3 +203,7 @@ services:
         networks:
           fabriq_net:
             ipv4_address: 172.8.0.11
+        labels:
+           - "traefik.docker.network=fabriq_net"
+           - "traefik.backend=mattermost"
+           - "traefik.frontend.rule=Host:mattermost.snow.ci"
