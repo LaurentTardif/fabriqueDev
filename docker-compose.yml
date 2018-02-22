@@ -22,7 +22,7 @@ services:
         volumes:
             - /var/run/docker.sock:/tmp/docker.sock:ro
     fabriquedev:
-        build: .
+        build: ./frontend/
         environment:
             - VIRTUAL_HOST=fab.snow.ci
         networks:
@@ -51,7 +51,7 @@ services:
     bash:
         user: $USER_ID
         command: bash
-        build: .
+        build: ./frontend
         volumes:
             - .:/src
         networks:
