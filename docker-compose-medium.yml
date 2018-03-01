@@ -1,0 +1,59 @@
+version: '3'
+
+services:
+    nexus:
+        image: sonatype/nexus3:3.7.1
+        user: root
+        restart: always
+        volumes:
+            - "/home/snow/fabriq/nexus:/nexus-data"
+        ports:
+            - 8082:8081 
+        environment:
+            - VIRTUAL_HOST=nexus.snow.ci
+            - VIRTUAL_PORT=8081
+        networks:
+          fabriq_net:
+            ipv4_address: 172.8.0.10
+        labels:
+           - "traefik.docker.network=fabriq_net"
+           - "traefik.backend=nexus"
+           - "traefik.frontend.rule=Host:nexus.snow.ci"
+    jira:
+        image: cptactionhank/atlassian-jira:7.7.0
+        user: root
+        restart: always
+        volumes:
+           - /home/snow/fabriq/jira/jira:/var/atlassian/jira
+           - /home/snow/fabriq/jira/logs:/opt/atlassian/jira/logs
+        ports:
+           - 8097:8080
+        environment:
+           - VIRTUAL_HOST=jira.snow.ci
+           - VIRTUAL_PORT=8080
+        networks:
+          fabriq_net:
+            ipv4_address: 172.8.0.11
+        labels:
+           - "traefik.docker.network=fabriq_net"
+           - "traefik.backend=jira"
+           - "traefik.frontend.rule=Host:jira.snow.ci"
+    mattermost:
+        image: mattermost/mattermost-preview:4.6
+        user: root
+        restart: always
+        ports:
+            - 8077:8065
+        environment:
+            - VIRTUAL_HOST=mattermost.snow.ci
+            - VIRTUAL_PORT=8065
+       #volumes:
+           #- /home/snow/fabriq/mattermost/data:/mm/mattermost/mattermost-data
+           #- /home/snow/fabriq/mattermost/config:/mm/mattermost/config
+        networks:
+          fabriq_net:
+            ipv4_address: 172.8.0.12
+        labels:
+           - "traefik.docker.network=fabriq_net"
+           - "traefik.backend=mattermost"
+           - "traefik.frontend.rule=Host:mattermost.snow.ci"

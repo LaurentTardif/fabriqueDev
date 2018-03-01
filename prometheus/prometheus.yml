@@ -6,6 +6,6 @@ scrape_configs:
   - job_name: 'prometheus'
 
     static_configs:
-      - targets: ['172.8.0.12:9090', '172.8.0.13:9100', 'localhost:9323']
+      - targets: ['172.8.0.6:9090', '172.8.0.7:9100', 'localhost:9323']
         labels:
           group: 'prometheus'
