@@ -56,6 +56,7 @@ services:
         labels:
            - "traefik.docker.network=fabriq_net"
            - "traefik.backend=gitlab"
+           - "traefik.backend.port=8080"
            - "traefik.frontend.rule=Host:gitlab.snow.ci"
     jenkins:
         image: jenkins/jenkins:2.103
