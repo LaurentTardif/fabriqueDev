@@ -9,3 +9,21 @@ scrape_configs:
       - targets: ['172.8.0.6:9090', '172.8.0.7:9100', 'localhost:9323']
         labels:
           group: 'prometheus'
+
+  - job_name: 'jenkins'
+
+    metrics_path : '/prometheus'
+
+    static_configs:
+
+      - targets: ['jenkins:8080']
+
+  - job_name: 'gitlab'
+
+    metrics_path : '/-/metrics'
+    params:
+      'token': ['T9iij5Gf1fBaVbnZoyFS']
+
+    static_configs:
+
+      - targets: ['172.8.0.4:80']
