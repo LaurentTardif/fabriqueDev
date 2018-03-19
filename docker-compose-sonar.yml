@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+    sonarqube:
+        image: sonarqube:6.7.1
+        user: root
+        restart: always
+        ports:
+            - 8085:9000
+        environment:
+            - VIRTUAL_HOST=sonar.snow.ci
+            - VIRTUAL_PORT=9000  
+        volumes:
+            - /home/snow/fabriq/sonarqube/conf:/opt/sonarqube/conf
+            - /home/snow/fabriq/sonarqube/data:/opt/sonarqube/data
+            - /home/snow/fabriq/sonarqube/extensions:/opt/sonarqube/extensions
+            - /home/snow/fabriq/sonarqube/bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+        networks:
+          fabriq_net:
+            ipv4_address: 172.8.0.40
+        labels:
+           - "traefik.docker.network=fabriq_net"
+           - "traefik.backend=sonarqube"
+           - "traefik.frontend.rule=Host:sonarqube.snow.ci"
