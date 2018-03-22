@@ -24,17 +24,6 @@ services:
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock:ro
             - ./traefik/traefik.toml/:/etc/traefik/traefik.toml
-    fabriquedev:
-        build: ./frontend/
-        environment:
-            - VIRTUAL_HOST=fab.samse.ci
-        networks:
-          fabriq_net:
-            ipv4_address: 172.8.0.3
-        labels:
-           - "traefik.docker.network=fabriq_net"
-           - "traefik.backend=fabriquedev"
-           - "traefik.frontend.rule=Host:fab.samse.ci"
     gitlab:
         image: gitlab/gitlab-ce:10.3.3-ce.0
         user: root
