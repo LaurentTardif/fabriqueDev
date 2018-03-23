@@ -22,12 +22,12 @@ services:
            - "traefik.frontend.rule=Host:nexus.samse.ci"
            - "traefik.backend=nexus"
     jira:
-        image: cptactionhank/atlassian-jira:7.7.0
+        image: cptactionhank/atlassian-jira-software:7.7.0
         user: root
         restart: always
         volumes:
-           - /home/snow/fabriq/jira/jira:/var/atlassian/jira
-           - /home/snow/fabriq/jira/logs:/opt/atlassian/jira/logs
+           - /home/samse/fabriq/jira/jira:/var/atlassian/jira
+           - /home/samse/fabriq/jira/logs:/opt/atlassian/jira/logs
         ports:
            - 8097:8080
         environment:
