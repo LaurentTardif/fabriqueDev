@@ -21,6 +21,7 @@ services:
            - "traefik.docker.network=fabriq_net"
            - "traefik.frontend.rule=Host:nexus.samse.ci"
            - "traefik.backend=nexus"
+           - "traefik.backend.port=8081"
     jira:
         image: cptactionhank/atlassian-jira-software:7.7.0
         user: root

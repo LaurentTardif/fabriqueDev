@@ -25,15 +25,13 @@ services:
             - /var/run/docker.sock:/var/run/docker.sock:ro
             - ./traefik/traefik.toml/:/etc/traefik/traefik.toml
     gitlab:
-        image: gitlab/gitlab-ce:10.3.3-ce.0
+        image: gitlab/gitlab-ce:10.3.6-ce.0
         user: root
         restart: always
         hostname: gitlab.samse.ci
         ports:
             - 8080:80
             - 9094:9090
-            - 8443:443
-            - 22:22
         environment:
             - VIRTUAL_HOST=gitlab.samse.ci
             - VIRTUAL_PORT=80                   
@@ -50,9 +48,7 @@ services:
            - "traefik.docker.network=fabriq_net"
            - "traefik.backend=gitlab"
            - "traefik.frontend.rule=Host:gitlab.samse.ci"
-           - "traefik.ssh_git.rule=Host:gitlab.samse.ci"
-           - "traefik.port=80"
-           - "traefik.ssh_git.port=22"
+           #- "traefik.backend.port=8080"
            - "traefik.frontend.port=80"
     jenkins:
         image: jenkins/jenkins:2.103
