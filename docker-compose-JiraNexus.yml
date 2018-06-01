@@ -6,30 +6,33 @@ services:
         user: root
         restart: always
         volumes:
-            - "/home/snow/fabriq/nexus:/nexus-data"
+            - "/home/samse/fabriq/nexus:/nexus-data"
         ports:
             - 8082:8081 
+            - 5002:5002
+            - 5003:5003
         environment:
-            - VIRTUAL_HOST=nexus.snow.ci
+            - VIRTUAL_HOST=nexus.samse.ci
             - VIRTUAL_PORT=8081
         networks:
           fabriq_net:
             ipv4_address: 172.8.0.10
         labels:
            - "traefik.docker.network=fabriq_net"
+           - "traefik.frontend.rule=Host:nexus.samse.ci"
            - "traefik.backend=nexus"
-           - "traefik.frontend.rule=Host:nexus.snow.ci"
+           - "traefik.backend.port=8081"
     jira:
-        image: cptactionhank/atlassian-jira:7.7.0
+        image: cptactionhank/atlassian-jira-software:7.7.0
         user: root
         restart: always
         volumes:
-           - /home/snow/fabriq/jira/jira:/var/atlassian/jira
-           - /home/snow/fabriq/jira/logs:/opt/atlassian/jira/logs
+           - /home/samse/fabriq/jira/jira:/var/atlassian/jira
+           - /home/samse/fabriq/jira/logs:/opt/atlassian/jira/logs
         ports:
            - 8097:8080
         environment:
-           - VIRTUAL_HOST=jira.snow.ci
+           - VIRTUAL_HOST=jira.samse.ci
            - VIRTUAL_PORT=8080
         networks:
           fabriq_net:
@@ -37,4 +40,4 @@ services:
         labels:
            - "traefik.docker.network=fabriq_net"
            - "traefik.backend=jira"
-           - "traefik.frontend.rule=Host:jira.snow.ci"
+           - "traefik.frontend.rule=Host:jira.samse.ci"

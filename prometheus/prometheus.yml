@@ -22,8 +22,17 @@ scrape_configs:
 
     metrics_path : '/-/metrics'
     params:
-      'token': ['T9iij5Gf1fBaVbnZoyFS']
+      'token': ['Y8De4cg-f1nV5JssZKsf']
 
     static_configs:
 
       - targets: ['172.8.0.4:80']
+
+  - job_name: 'backendForge'
+
+    metrics_path : '/actuator/prometheus'
+
+    static_configs:
+
+      - targets: ['172.16.8.203:9000']
+
