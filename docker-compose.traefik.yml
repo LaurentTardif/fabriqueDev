@@ -1,0 +1,57 @@
+version: '3'
+
+networks:
+  fabriq_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      -
+        subnet: 172.8.0.0/16
+        #gateway: 172.8.0.1
+services:
+    traefik:
+        image: traefik
+        environment:
+            - DEFAULT_HOST=fab.snow.ci
+        command: --api --docker --logLevel=DEBUG
+        ports:
+            - "80:80"
+            - "5001:80"
+            - "5002:80"
+            - "8000:8080"
+        networks:
+          fabriq_net:
+            ipv4_address: 172.8.0.2
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+            - ./traefik/traefik.toml/:/etc/traefik/traefik.toml
+    gitlab:
+        image: gitlab/gitlab-ce:10.3.3-ce.0
+        user: root
+        restart: always
+        hostname: gitlab.snow.ci
+        ports:
+            - 8080:80
+            - 5004:5001
+            - 5003:5002
+            - 8443:443
+        environment:
+            - VIRTUAL_HOST=gitlab.snow.ci
+            - VIRTUAL_PORT=80                   
+            - prometheus_multiproc_dir=/var/log/gitlab_metrics
+        volumes:
+            - /home/snow/fabriq/gitlab/config:/etc/gitlab 
+            - /home/snow/fabriq/gitlab/logs:/var/log/gitlab 
+            - /home/snow/fabriq/gitlab/data:/var/opt/gitlab
+            - /home/snow/fabriq/gitlab/metrics:/var/log/gitlab_metrics
+        networks:
+          fabriq_net:
+            ipv4_address: 172.8.0.4
+        labels:
+           - "traefik.docker.network=fabriq_net"
+           - "traefik.dockerhub.backend=gitlab"
+           - "traefik.dockerhub.frontend.rule=Host:gitlab.snow.ci"
+           - "traefik.dockerhub.frontend.port=5002"
+           - "traefik.dockerhub.backend.port=5012"
+
