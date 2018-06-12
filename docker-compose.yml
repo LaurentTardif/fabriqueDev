@@ -1,7 +1,7 @@
 version: '3'
 
 networks:
-  fabriq_net:
+  ${DATA_PATH}_net:
     driver: bridge
     ipam:
       driver: default
@@ -13,13 +13,13 @@ services:
     traefik:
         image: traefik
         environment:
-            - DEFAULT_HOST=fab.samse.ci
+            - DEFAULT_HOST=fab.${DOMAIN}
         command: --api --docker --logLevel=DEBUG
         ports:
             - "80:80"
             - "8000:8080"
         networks:
-          fabriq_net:
+          ${DATA_PATH}_net:
             ipv4_address: 172.8.0.2
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -28,27 +28,26 @@ services:
         image: gitlab/gitlab-ce:10.3.6-ce.0
         user: root
         restart: always
-        hostname: gitlab.samse.ci
+        hostname: gitlab.${DOMAIN}
         ports:
             - 8080:80
             - 9094:9090
         environment:
-            - VIRTUAL_HOST=gitlab.samse.ci
+            - VIRTUAL_HOST=gitlab.${DOMAIN}
             - VIRTUAL_PORT=80                   
             - prometheus_multiproc_dir=/var/log/gitlab_metrics
         volumes:
-            - /home/samse/fabriq/gitlab/config:/etc/gitlab 
-            - /home/samse/fabriq/gitlab/logs:/var/log/gitlab 
-            - /home/samse/fabriq/gitlab/data:/var/opt/gitlab
-            - /home/samse/fabriq/gitlab/metrics:/var/log/gitlab_metrics
+            - ${DATA_PATH}/gitlab/config:/etc/gitlab 
+            - ${DATA_PATH}/gitlab/logs:/var/log/gitlab 
+            - ${DATA_PATH}/gitlab/data:/var/opt/gitlab
+            - ${DATA_PATH}/gitlab/metrics:/var/log/gitlab_metrics
         networks:
-          fabriq_net:
+          ${DATA_PATH}_net:
             ipv4_address: 172.8.0.4
         labels:
-           - "traefik.docker.network=fabriq_net"
+           - "traefik.docker.network=${DATA_PATH}_net"
            - "traefik.backend=gitlab"
-           - "traefik.frontend.rule=Host:gitlab.samse.ci"
-           #- "traefik.backend.port=8080"
+           - "traefik.frontend.rule=Host:gitlab.${DOMAIN}"
            - "traefik.frontend.port=80"
     jenkins:
         image: jenkins/jenkins:2.103
@@ -58,17 +57,17 @@ services:
             - 8081:8080
             - 50000:50000
         environment:
-            - VIRTUAL_HOST=jenkins.samse.ci
+            - VIRTUAL_HOST=jenkins.${DOMAIN}
             - VIRTUAL_PORT=8080              
         volumes:
-            - /home/samse/fabriq/jenkins:/var/jenkins_home
+            - ${DATA_PATH}/jenkins:/var/jenkins_home
         networks:
-          fabriq_net:
+          ${DATA_PATH}_net:
             ipv4_address: 172.8.0.5
         labels:
-           - "traefik.docker.network=fabriq_net"
+           - "traefik.docker.network=${DATA_PATH}_net"
            - "traefik.backend=jenkins"
-           - "traefik.frontend.rule=Host:jenkins.samse.ci"
+           - "traefik.frontend.rule=Host:jenkins.${DOMAIN}"
     prometheus:
         image: prom/prometheus
         ports:
@@ -76,12 +75,12 @@ services:
         volumes:
            - /tmp/prometheus.yml:/etc/prometheus/prometheus.yml
         networks:
-          fabriq_net:
+          ${DATA_PATH}_net:
             ipv4_address: 172.8.0.6
         labels:
-           - "traefik.docker.network=fabriq_net"
+           - "traefik.docker.network=${DATA_PATH}_net"
            - "traefik.backend=prometheus"
-           - "traefik.frontend.rule=Host:prometheus.samse.ci"
+           - "traefik.frontend.rule=Host:prometheus.${DOMAIN}"
     node-exporter:
         image: quay.io/prometheus/node-exporter
         ports: 
@@ -91,26 +90,26 @@ services:
            - /sys:/host/sys
            - /:/rootfs" 
         networks:
-          fabriq_net:
+          ${DATA_PATH}_net:
             ipv4_address: 172.8.0.7
         labels:
-           - "traefik.docker.network=fabriq_net"
+           - "traefik.docker.network=${DATA_PATH}_net"
            - "traefik.backend=node_exporter"
-           - "traefik.frontend.rule=Host:node_exporter.samse.ci"
+           - "traefik.frontend.rule=Host:node_exporter.${DOMAIN}"
     grafana:
         image: grafana/grafana
         ports:
           - 3000:3000
         volumes:
-          - /home/samse/fabriq/grafana/data:/var/lib/grafana
+          - ${DATA_PATH}/grafana/data:/var/lib/grafana
         environment:
-          - GF_SERVER_ROOT_URL=http://grafana.samse.ci
+          - GF_SERVER_ROOT_URL=http://grafana.${DOMAIN}
           - GF_SECURITY_ADMIN_PASSWORD=secret 
         networks:
-          fabriq_net:
+          ${DATA_PATH}_net:
             ipv4_address: 172.8.0.8
         labels:
-           - "traefik.docker.network=fabriq_net"
+           - "traefik.docker.network=${DATA_PATH}_net"
            - "traefik.backend=grafana"
-           - "traefik.frontend.rule=Host:grafana.samse.ci"
+           - "traefik.frontend.rule=Host:grafana.${DOMAIN}"
 

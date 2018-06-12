@@ -4,124 +4,27 @@ This project is a workshop to create a development frabrique. It's based on the 
 by : @cedvanet and @StalinAntoine 
 
 
+This project is maintened by Laurent Tardif, @ouelcum. 
+
+I added traeffik and update some components to build a forge demonstration project.
 
 
+-------------------- 
+# How to configure it 
 
-[Fabrique candidates](./src/assets/docs/Candidats.md)
+ * copy the prometheus/prometheus.yml in /tmp
+ * configure the .env file to match your installation (mainly the domain you want to use, and the path where you want to put configuration files)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.
+example of .env file : 
 
-## Quick start
-
-*Requirements*
-
-- docker
-- docker-compose
-
-Create `docker-composer.yml`
-```
-version: '3'
-services:
-    nginx-proxy:
-        image: fabriquedev-nginx-proxy:latest
-        restart: always
-        ports:
-            - "80:80"
-        volumes:
-            - /var/run/docker.sock:/tmp/docker.sock:ro
-    fabriquedev:
-        image: fabriquedev:latest
-        restart: always
-        environment:
-            - VIRTUAL_HOST=fab.snow.ci
-            
-    # Put your tools below
-```
-
-Start fabrique
-
-```
-$ docker-compose up -d
-```
-
-Add `127.0.0.1 fab.snow.ci` to /etc/hosts
-
-```
-$ sudo echo "127.0.0.1 fab.snow.ci" >> /etc/hosts
-```
-
-*Go to http://localhost*
-
-## Deploy to EC2
-
-Replace `<your-security-group>` by a valid security group with port 80 and 22 allowed
-
-```
-$ aws ec2 run-instances \
-    --image-id ami-4262d53f \
-    --count 1 \
-    --instance-type m5.xlarge \
-    --user-data https://raw.githubusercontent.com/xxxx/fabriqueDev/master/aws/userdata.yml \
-    --security-groups <your-security-group> \
-    --block-device-mappings https://raw.githubusercontent.com/xxxxx/fabriqueDev/master/aws/mapping.json
-```
-
-*Access to fabrique with `http://<public-ip>`*
-
-*Connect on your instance with ssh:*
-- user `snow`
-- password `camp`
-
-## Development
-
-### Development server
-
-Run `npm run start` for a start project on local. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-### Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-### Build
-
-Run `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-### Running unit tests
-
-Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-### Running end-to-end tests
-
-Run `npm run e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-### Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-
-### Use docker
-
-*Requirements*
-
-- docker
-- docker-compose
+	DOMAIN=snow.ci
+	DATA_PATH=/home/snow/ci/
 
 
-```
-make build
-make start
-make bash # Use to launch npm and ng commands
-make stop
-make remove
-```
+# How to run it 
 
-### Deploy latest docker image online to EC2 instance
+ * Docker-compose -f docker-compose.yml start # will start a minimal forge : traefik, promotheus, jenkins and gitlab 
+ * To run additional component add the docker-compose you need in the command line ex :
+    docker-compose -f docker-compose.yml -f docker-compose-Jira.yml start
 
-```
-make aws-run-instances \
-    AWS_ACCESS_KEY_ID=<your-access-key-id> \
-    AWS_SECRET_ACCESS_KEY=<your-secret-access-key> \
-    AWS_DEFAULT_REGION=<your-default-region> \
-    SECURITY_GROUPS=<your-default-region>
-```
-
-*Security group must allowed port 80 and 22*
+ 
