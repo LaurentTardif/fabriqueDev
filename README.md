@@ -20,6 +20,9 @@ example of .env file :
 	DOMAIN=snow.ci
 	DATA_PATH=/home/snow/ci/
 
+# How to fetch specific stuff
+
+For artifactory : docker pull docker.bintray.io/jfrog/artifactory-oss:latest
 
 # How to run it 
 
@@ -28,3 +31,8 @@ example of .env file :
     docker-compose -f docker-compose.yml -f docker-compose-Jira.yml start
 
  
+#GITLAB 
+  default user : admin@example.com
+
+#Jenkins 
+

@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+    nexus:
+        image: sonatype/nexus3:3.7.1
+        user: root
+        restart: always
+        volumes:
+            - "${DATA_PATH}/nexus:/nexus-data"
+        ports:
+            - 8082:8081 
+            - 5002:5002
+            - 5003:5003
+        environment:
+            - VIRTUAL_HOST=nexus.${DOMAIN}
+            - VIRTUAL_PORT=8081
+        networks:
+          fabriq_net:
+            ipv4_address: 172.8.0.10
+        labels:
+           - "traefik.docker.network=fabriq_net"
+           - "traefik.frontend.rule=Host:nexus.${DOMAIN}"
+           - "traefik.backend=nexus"
+           - "traefik.backend.port=8081"
