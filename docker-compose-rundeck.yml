@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+    rundeck:
+        image: jordan/rundeck:2.10.4
+        user: root
+        restart: always
+        ports:
+            - 4440:4440
+        volumes:
+            - ${DATA_PATH}/rundeck/etc:/etc/rundeck
+            - ${DATA_PATH}/rundeck/var:/var/rundeck
+            - ${DATA_PATH}/rundeck/varlog:/var/log/rundeck
+            - ${DATA_PATH}/rundeck/plugins:/opt/rundeck-plugins
+            - ${DATA_PATH}/rundeck/log:/var/lib/rundeck/logs
+            - ${DATA_PATH}/rundeck/data:/var/lib/rundeck/var/storage
+            - ${DATA_PATH}/rundeck/shared:/tmp/fabriq/shared
+        environment:
+            - RUNDECK_ADMIN_PASSWORD=admin
+            - EXTERNAL_SERVER_URL=http://rundeck.${DOMAIN}
+            - VIRTUAL_HOST=rundeck.snow.ci
+            - VIRTUAL_PORT=4440
+        networks:
+          fabriq_net:
+            ipv4_address: 172.8.0.9
+        labels:
+           - "traefik.docker.network=fabriq_net"
+           - "traefik.backend=rundeck"
+           - "traefik.frontend.rule=Host:rundeck.${DOMAIN}"
+

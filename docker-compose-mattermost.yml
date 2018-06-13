@@ -8,15 +8,15 @@ services:
         ports:
             - 8077:8065
         environment:
-            - VIRTUAL_HOST=mattermost.samse.ci
+            - VIRTUAL_HOST=mattermost.${DOMAIN}
             - VIRTUAL_PORT=8065
        #volumes:
-           #- /home/snow/fabriq/mattermost/data:/mm/mattermost/mattermost-data
-           #- /home/snow/fabriq/mattermost/config:/mm/mattermost/config
+           #- ${DATA_PATH}/mattermost/data:/mm/mattermost/mattermost-data
+           #- ${DATA_PATH}/mattermost/config:/mm/mattermost/config
         networks:
           fabriq_net:
             ipv4_address: 172.8.0.12
         labels:
            - "traefik.docker.network=fabriq_net"
            - "traefik.backend=mattermost"
-           - "traefik.frontend.rule=Host:mattermost.samse.ci"
+           - "traefik.frontend.rule=Host:mattermost.${DOMAIN}"
