@@ -11,7 +11,7 @@ networks:
         #gateway: 172.8.0.1
 services:
     traefik:
-        image: traefik
+        image: traefik:1.6
         environment:
             - DEFAULT_HOST=fab.${DOMAIN}
         command: --api --docker --logLevel=DEBUG
@@ -50,7 +50,7 @@ services:
            - "traefik.frontend.rule=Host:gitlab.${DOMAIN}"
            - "traefik.frontend.port=80"
     jenkins:
-        image: jenkins/jenkins:2.103
+        image: jenkins/jenkins:2.127
         user: root
         restart: always
         ports:
@@ -69,7 +69,7 @@ services:
            - "traefik.backend=jenkins"
            - "traefik.frontend.rule=Host:jenkins.${DOMAIN}"
     prometheus:
-        image: prom/prometheus
+        image: prom/prometheus:v2.3.0
         ports:
            - 9090:9090
         volumes:
@@ -82,7 +82,7 @@ services:
            - "traefik.backend=prometheus"
            - "traefik.frontend.rule=Host:prometheus.${DOMAIN}"
     node-exporter:
-        image: quay.io/prometheus/node-exporter
+        image: prom/node-exporter:v0.16.0
         ports: 
            - 9100:9100
         volumes:
@@ -97,7 +97,7 @@ services:
            - "traefik.backend=node_exporter"
            - "traefik.frontend.rule=Host:node_exporter.${DOMAIN}"
     grafana:
-        image: grafana/grafana
+        image: grafana/grafana:5.1.3
         ports:
           - 3000:3000
         volumes:

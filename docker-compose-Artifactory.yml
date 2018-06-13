@@ -2,7 +2,7 @@ version: '3'
 
 services:
     artifactory:
-        image: jfrog/artifactory-oss:6.0.1
+        image: docker.bintray.io/jfrog/artifactory-oss:6.0.1
         user: root
         restart: always
         volumes:

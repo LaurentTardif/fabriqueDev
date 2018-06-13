@@ -12,6 +12,19 @@ I added traeffik and update some components to build a forge demonstration proje
 -------------------- 
 # How to configure it 
 
+ * Update your /etc/hosts to allow easy access to the services
+
+Example of /etc/hosts 
+
+	127.0.0.1   grafana.snow.ci
+	127.0.0.1   prometheus.snow.ci
+	127.0.0.1   fab.snow.ci gitlab.snow.ci jenkins.snow.ci nexus.snow.ci sonar.snow.ci 
+	127.0.0.1   jira.snow.ci rundeck.snow.ci nginx.snow.ci mattermost.snow.ci
+	127.0.0.1   artifactory.snow.ci
+
+
+
+
  * copy the prometheus/prometheus.yml in /tmp
  * configure the .env file to match your installation (mainly the domain you want to use, and the path where you want to put configuration files)
 
