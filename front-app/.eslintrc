@@ -1,0 +1,115 @@
+{
+	"env": {
+		"es6": true,
+		"node": true
+	},
+	"parserOptions": {
+		"parser": "babel-eslint"
+	},
+	"plugins": [
+		"vue"
+	],
+	"extends": [
+		"eslint:recommended",
+		"plugin:vue/recommended"
+	],
+	"rules": {
+		"no-console": "off",
+		"no-useless-escape": "off",
+		"no-var": [ "error" ],
+		"prefer-const": [ "error", { "destructuring": "any", "ignoreReadBeforeAssign": false } ],
+		"curly": [ "error", "multi-line" ],
+		"dot-location": [ "error", "property" ],
+		"dot-notation": [ 0, { "allowKeywords": true } ],
+		"eqeqeq": [ "error", "always" ],
+		"no-eval": [ "error" ],
+		"no-implied-eval": [ "error" ],
+		"no-lone-blocks": [ "error" ],
+		"no-multi-spaces": "error",
+		"no-proto": "error",
+		"no-redeclare": [ "error", { "builtinGlobals": true } ],
+		"no-return-assign": "error",
+		"no-script-url": "error",
+		"no-self-compare": "error",
+		"no-sequences": "error",
+		"no-unused-expressions": "error",
+		"no-useless-call": "error",
+		"no-useless-concat": "error",
+		"no-void": "error",
+		"no-with": "error",
+		"radix": "error",
+		"complexity": [ "error", { "max": 11 } ],
+		"keyword-spacing": [ "error" ],
+		"comma-spacing": "error",
+		"key-spacing": "error",
+		"spaced-comment": "error",
+		"no-extra-parens": [ "error" ],
+		"no-cond-assign": [ "error" ],
+		"no-irregular-whitespace": [ "error", { "skipStrings": true } ],
+		"no-caller": [ "error" ],
+		"no-empty-function": [ "error" ],
+		"no-eq-null": [ "error" ],
+		"no-else-return": [ "error" ],
+		"no-invalid-this": [ "error" ],
+		"no-iterator": [ "error" ],
+		"no-labels": [ "error" ],
+		"no-loop-func": [ "error" ],
+		"no-new-wrappers": [ "error" ],
+		"no-useless-rename": [ "error" ],
+		"no-useless-constructor": [ "error" ],
+		"no-confusing-arrow": [ "error" ],
+		"no-unmodified-loop-condition": [ "error" ],
+		"yoda": [ "error", "never" ],
+		"object-curly-spacing": [ "error", "always" ],
+		"array-bracket-spacing": [ "error", "always" ],
+		"strict": [ "error" ],
+		"init-declarations": [ "error", "always" ],
+		"no-shadow": [ "error" ],
+		"no-undef-init": [ "error" ],
+		"callback-return": [ "error" ],
+		"global-require": [ "error" ],
+		"no-buffer-constructor": [ "error" ],
+		"no-mixed-requires": [ "error" ],
+		"no-new-require": [ "error" ],
+		"no-process-exit": [ "error" ],
+		"no-sync": [ "error" ],
+		"camelcase": [ "error", { "properties": "always" } ],
+		"comma-dangle": [ "error", "never" ],
+		"comma-style": [ "error", "last" ],
+		"computed-property-spacing": [ "error", "never" ],
+		"eol-last": [ "error" ],
+		"func-call-spacing": [ "error", "never" ],
+		"indent": [ "error", "tab" ],
+		"no-multiple-empty-lines": [ "error", { "max": 2 } ],
+		"no-new-object": [ "error" ],
+		"no-trailing-spaces": [ "error" ],
+		"wrap-regex": [ "error" ],
+		"arrow-spacing": [ "error" ],
+		"linebreak-style": [ "error", "unix" ], "quotes": [ "error", "single" ],
+		"semi": [ "error", "never" ],
+		"space-infix-ops": [ "error", { "int32Hint": false } ],
+		"no-warning-comments": [ "warn", { "terms": [ "todo", "fixme" ], "location": "anywhere" } ],
+
+
+		"vue/html-indent": [ "error", "tab", { "alignAttributesVertically": true } ],
+		"vue/html-closing-bracket-spacing": ["error", {
+			"startTag": "never",
+			"endTag": "never",
+			"selfClosingTag": "always"
+		}],
+		"vue/attribute-hyphenation" :[2, "never"],
+		"vue/html-closing-bracket-newline": ["error", {
+			"singleline": "never",
+			"multiline": "never"
+		}],
+		"vue/html-quotes": [ "error", "single" ],
+		"vue/html-self-closing": [ "error", {
+			"html": {
+				"void": "always",
+				"normal": "always",
+				"component": "always"
+			}
+		}],
+		"vue/name-property-casing": ["error", "PascalCase"]
+	}
+}

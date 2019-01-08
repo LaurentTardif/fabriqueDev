@@ -1,0 +1,82 @@
+pipeline {
+    agent any
+
+    stages {
+		stage('Dependencies') {
+			steps {
+				sh 'npm set progress=false'
+				sh 'npm i'
+			}
+		}
+
+        stage('Build') {
+            steps {
+		sh 'rm -fr dist' 
+                sh 'npm run build'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'npm run test'
+            }
+        }
+
+		stage('QC') {
+			parallel {
+				stage('Sonar') {
+					environment {
+						scannerHome = tool 'SQScan3'
+					}
+					steps {
+						updateGitlabCommitStatus name: 'QC', state: 'running'
+						withSonarQubeEnv('sonar') {
+							sh "${scannerHome}/bin/sonar-scanner"
+						}
+
+						timeout(time: 10, unit: 'MINUTES') {
+							waitForQualityGate abortPipeline: false
+						}
+					}
+				}
+
+				stage('Lint') {
+					steps {
+						sh 'npm run lint'
+					}
+				}
+
+				stage('Vulnerabilities') {
+					steps {
+						sh 'npm audit'
+					}
+				}
+			}
+		}
+
+        stage('Docker') {
+            when { branch 'master' }
+			parallel {
+				stage(':version') {
+					steps {
+						withDockerRegistry([ credentialsId: "dockerhub", url: "" ]) {
+							sh 'docker build -t tiphedor/fdev-front:${BUILD_NUMBER} .'
+							sh 'docker push tiphedor/fdev-front:${BUILD_NUMBER}'
+						}
+					}
+				}
+
+				stage(':latest') {
+					steps {
+						withDockerRegistry([ credentialsId: "dockerhub", url: "" ]) {
+							sh 'docker build -t tiphedor/fdev-front:latest .'
+							sh 'docker push tiphedor/fdev-front:latest'
+						}
+					}
+				}
+			}
+        }
+
+
+    }
+}
