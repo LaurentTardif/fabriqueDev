@@ -1,0 +1,85 @@
+global:
+  scrape_interval: 5s
+  evaluation_interval: 5s
+
+scrape_configs:
+  # - job_name: 'prometheus'
+  #   static_configs:
+  #     - targets: ['localhost:9090']
+
+  - job_name: 'back'
+    static_configs:
+      - targets: ['back:3000']
+
+  # - job_name: 'jenkins'
+  #   metrics_path: /prometheus/
+  #   static_configs:
+  #     - targets: ['jenkins:8080']
+
+
+  # - job_name: 'nodeexporter'
+  #   scrape_interval: 5s
+  #   static_configs:
+  #     - targets: ['nodeexporter:9100']
+
+  # - job_name: 'front'
+  #   scrape_interval: 5s
+  #   metrics_path: /metrics
+  #   static_configs:
+  #     - targets: ['app:9117']
+
+  # - job_name: 'api'
+  #   scrape_interval: 5s
+  #   metrics_path: /actuator/prometheus
+  #   static_configs:
+  #     - targets: ['api:8080']
+
+  # - job_name: 'cadvisor'
+  #   scrape_interval: 5s
+  #   static_configs:
+  #     - targets: ['cadvisor:8080']
+
+  # - job_name: 'postgres'
+  #   scrape_interval: 5s
+  #   static_configs:
+  #     - targets: ['exporter-postgres:9187']
+  
+  # - job_name: 'traefik'
+  #   scrape_interval: 5s
+  #   static_configs:
+  #     - targets: ['reverse-proxy:8080']
+  # - job_name: 'ping-exporter'
+  #   scrape_interval: 5s
+  #   metrics_path: /probe
+  #   params:
+  #        prot: ['4']
+  #   static_configs:
+  #     - targets:
+  #         - api
+  #         - cadvisor
+  #         - nodeexporter
+  #         - prometheus
+  #         - exporter-ping
+  #         - gitlab
+  #         - jenkins
+  #         - artifactory
+  #         - app
+  #         - db
+  #         - sonar
+  #         - portainer
+  #         - grafana
+  #         - reverse-proxy
+  #         - exporter-postgres
+  #         - mattermost
+  #   relabel_configs:
+  #     - source_labels: [__address__]
+  #       target_label: __param_target
+  #       replacement: ${1}
+  #     - source_labels: [__param_target]
+  #       regex: (.*)
+  #       target_label: instance
+  #       replacement: ${1}
+  #     - source_labels: []
+  #       regex: .*
+  #       target_label: __address__
+  #       replacement: exporter-ping:8085

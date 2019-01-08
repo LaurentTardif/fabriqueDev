@@ -1,0 +1,28 @@
+
+filebeat.prospectors:
+- type: log
+  json.keys_under_root: true
+# Json key name, which value contains a sub JSON document produced by our application Console Appender
+  json.message_key: log
+  enabled: true
+  encoding: utf-8
+  document_type: docker
+  paths:
+# Location of all our Docker log files (mapped volume in docker-compose.yml)
+    - '/var/lib/docker/containers/*/*.log'
+processors:
+# decode the log field (sub JSON document) if JSONencoded, then maps it's fields to elasticsearch fields
+- decode_json_fields:
+    fields: ["log"]
+    target: ""
+# overwrite existing target elasticsearch fields while decoding json fields    
+    overwrite_keys: true
+- add_docker_metadata: ~
+output.logstash:
+  hosts: ["logstash:5044"]
+ 
+
+
+# Write Filebeat own logs only to file to avoid catching them with itself in docker log files
+logging.to_files: true
+logging.to_syslog: false

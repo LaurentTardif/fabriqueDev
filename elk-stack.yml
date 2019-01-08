@@ -1,0 +1,89 @@
+version: '3'
+
+volumes:
+  esdata:
+
+networks:
+    fabriq_net:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.8.0.0/16
+
+services:
+
+  # exep:
+  #   image: 'tiphedor/infiniteexception'
+  #   logging:
+  #     driver: gelf
+  #     options:
+  #       gelf-address: udp://172.8.0.15:12201
+  #       tag: exep
+
+  clock1:
+    image: 'tiphedor/speakingclock'
+    logging:
+      driver: syslog 
+      options:
+        syslog-facility: daemon
+        syslog-address: tcp://${ELK_LOGSTASH_IPV4}:5000
+        tag: clock-1
+
+  elasticsearch:
+    image: 'elasticsearch:5.6.12-alpine'
+    restart: always
+    environment:
+        - node.name=${ELK_ELASTICSEARCH_NODENAME}
+        - cluster.name=${ELK_ELASTICSEARCH_CLUSTERNAME}
+        - bootstrap.memory_lock=true
+        - "ES_JAVA_OPTS=-Xms${ELK_ELASTICSEARCH_XMS} -Xmx${ELK_ELASTICSEARCH_XMX}"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    networks:
+        fabriq_net:
+            ipv4_address: ${ELK_ELASTICSEARCH_IPV4}
+
+  logstash:
+      image: 'docker.elastic.co/logstash/logstash:6.4.2'
+      restart: 'always'
+      depends_on:
+        - elasticsearch
+      environment:
+        - "LS_JAVA_OPTS=-Xms${ELK_LOGSTASH_XMS} -Xmx${ELK_LOGSTASH_XMX}"
+      networks:
+        fabriq_net:
+          ipv4_address: ${ELK_LOGSTASH_IPV4}
+      volumes:
+        - ./configs/elk/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+        - ./configs/elk/pipeline:/usr/share/logstash/pipeline:ro
+
+
+  filebeat:
+    user: root
+    image: 'docker.elastic.co/beats/filebeat:6.4.2'
+    volumes:
+      - ./configs/elk/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - "filebeat_data:/usr/share/filebeat/data:rw"
+      - "/var/lib/docker/containers:/var/lib/docker/containers:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      fabriq_net:
+        ipv4_address: ${ELK_FILEBEAT_IPV4}
+
+  kibana:
+    image: 'kibana:5.6.12'
+    depends_on:
+      - elasticsearch
+      - logstash
+    restart: always
+    ports:
+      - 5601:5601
+    environment:
+      SERVER_NAME: kibana
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+    volumes:
+      - ${DATA_PATH}/gitlab/config:/etc/gitlab
+    networks:
+        fabriq_net:
+            ipv4_address: ${ELK_KIBANA_IPV4}

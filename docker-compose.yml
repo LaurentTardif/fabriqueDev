@@ -1,0 +1,172 @@
+version: '3'
+
+networks:
+    fabriq_net:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.8.0.0/16
+services:
+    reverse-proxy:
+        image: traefik:v1.7.3
+        command: --api --docker
+        ports:
+            - "80:80"
+            - "8080:8080"
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+            - ./configs/traefik.toml/:/etc/traefik/traefik.toml
+        networks:
+            fabriq_net:
+                ipv4_address: ${REVERSEPROXY_IPV4}
+
+    gitlab:
+        image: 'gitlab/gitlab-ce:11.3.6-ce.0'
+        restart: always
+        ports:
+            - "22:22"
+        environment:
+          GITLAB_OMNIBUS_CONFIG: |
+            external_url 'http://gitlab.${DOMAIN}'
+          GITLAB_ROOT_EMAIL: ${DEFAULT_EMAIL}
+          GITLAB_ROOT_PASSWORD: ${DEFAULT_PASSWORD}
+          GITLAB_HOST: gitlab.${DOMAIN}
+          GITLAB_HTTPS: 'false'
+          SSL_SELF_SIGNED: 'false'
+          DEBUG: 'false'
+        volumes:
+            - ${DATA_PATH}/gitlab/config:/etc/gitlab
+            - ${DATA_PATH}/gitlab/logs:/var/log/gitlab
+            - ${DATA_PATH}/gitlab/data:/var/opt/gitlab
+        labels:
+            - "traefik.backend=gitlab"
+            - "traefik.frontend.rule=Host:gitlab.${DOMAIN}"
+            - "traefik.port=80"
+            - "traefik.docker.network=fabriq_net"
+        networks:
+            fabriq_net:
+                ipv4_address: ${GITLAB_IPV4}
+    jenkins:
+        networks:
+            fabriq_net:
+                ipv4_address: ${JENKINS_IPV4}
+        environment:
+          - JAVA_OPTS=-Xmx8g -Xms8g -XX:MaxPermSize=2048m
+        image: tiphedor/jenkins-env:1.9.0-bcc31d32159f
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - ${DATA_PATH}/jenkins/data:/var/jenkins_home
+        labels:
+            - "traefik.frontend.rule=Host:jenkins.${DOMAIN}"
+            - "traefik.backend=jenkins"
+            - "traefik.docker.network=fabriq_net"
+    sonar:
+        image: 'sonarqube:7.1-alpine'
+        networks:
+            fabriq_net:
+                ipv4_address: ${SONAR_IPV4}
+        volumes:
+                - ${DATA_PATH}/sonar/data:/opt/sonarqube/data
+                - ${DATA_PATH}/sonar/ext:/opt/sonarqube/extensions
+        labels:
+            - "traefik.frontend.rule=Host:sonar.${DOMAIN}"
+            - "traefik.backend=sonar"
+            - "traefik.docker.network=fabriq_net"
+    grafana:
+        image: 'grafana/grafana:5.3.1'
+        environment:
+            - GF_SECURITY_ADMIN_PASSWORD=admin
+            - GF_INSTALL_PLUGINS=grafana-piechart-panel,vonage-status-panel
+        networks:
+            fabriq_net:
+                ipv4_address: ${GRAFANA_IPV4}
+        depends_on:
+            - prometheus
+        volumes:
+            - ${DATA_PATH}/grafana:/var/lib/grafana
+        labels:
+            - "traefik.frontend.rule=Host:grafana.${DOMAIN}"
+            - "traefik.backend=grafana"
+            - "traefik.docker.network=fabriq_net"
+    prometheus:
+        networks:
+            fabriq_net:
+                ipv4_address: ${PROMETHEUS_IPV4}
+        ports:
+          - "9090:9090"
+        command:
+          - "--config.file=/etc/prometheus/prometheus.yml"
+          - "--storage.tsdb.path=/var/lib/prometheus/"
+        image: 'prom/prometheus:v2.4.3'
+        volumes:
+            - ./configs/prometheus.yml:/etc/prometheus/prometheus.yml
+            - "${DATA_PATH}/prometheus/pdata:/var/lib/prometheus/"
+        labels:
+            - "traefik.frontend.rule=Host:prometheus.${DOMAIN}"
+            - "traefik.backend=prometheus"
+            - "traefik.docker.network=fabriq_net"
+
+    db:
+        image: 'postgres:11.0'
+        ports:
+            - "5432:5432"
+        networks:
+            fabriq_net:
+                ipv4_address: ${DB_IPV4}
+        environment:
+            - POSTGRES_PASSWORD=
+            - POSTGRES_USER=postgres
+            - POSTGRES_DB=fdev
+        volumes:
+            - ${DATA_PATH}/db:/var/lib/postgresql/data
+            - ./configs/sql.sql:/docker-entrypoint-initdb.d/sql.sql
+
+    api:
+        restart: always
+        ports:
+            - "8022:22"
+            - "8010:8080"
+        depends_on:
+            - db
+        image: 'tiphedor/fdev-back'
+        environment:
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/fdev
+        labels:
+            - "traefik.frontend.rule=Host:api.${DOMAIN}"
+            - "traefik.backend=api"
+            - "traefik.docker.network=fabriq_net"
+        networks:
+            fabriq_net:
+                ipv4_address: ${API_IPV4}
+
+    app:
+        restart: always
+        image: 'tiphedor/fdev-front:latest'
+        depends_on:
+            - api
+        ports:
+          - "9117:9117"
+        labels:
+            - "traefik.frontend.rule=Host:fab.${DOMAIN}"
+            - "traefik.backend=app"
+            - "traefik.docker.network=fabriq_net"
+            - "traefik.port=80"
+        networks:
+            fabriq_net:
+                ipv4_address: ${APP_IPV4}
+
+    nexus:
+      restart: always
+      image: sonatype/nexus3:3.14.0
+      networks:
+            fabriq_net:
+                ipv4_address: ${NEXUS_IPV4}
+      volumes:
+        - ${DATA_PATH}/nexus:/nexus-data
+      labels:
+        - "traefik.frontend.rule=Host:nexus.${DOMAIN}"
+        - "traefik.backend=nexus"
+        - "traefik.docker.network=fabriq_net"
+        - "traefik.port=8081"
+
