@@ -4,7 +4,7 @@
 
 ## Compatibility
 
-This project was mostly developed on macOS Mojave (10.14), with Docker for mac version `18.09.0, build 4d60db4`. It's known to work well on Linux too, but if you can use macOS i'd recomended doing so.
+This project was mostly developed on macOS Mojave (10.14), with Docker for mac version `18.09.0, build 4d60db4`. It's known to work well on Linux too, but if you can use macOS I'd recommend doing so.
 
 ## Requirements
 
@@ -17,7 +17,7 @@ When fully loaded, this project will consume **lots** of CPU and RAM. Really. **
 
 # Installation
 
-**Important:** Because GitHub's maximum file size is 100M, the data archive had to be splited into smaller chunks. Before runnning this project, you need to merge them back toghether. To do so, run: 
+**Important:** Because GitHub's maximum file size is 100M, the data archive had to be split into smaller chunks. Before running this project, you need to merge them back together. To do so, run: 
 
 ````bash
 cd archive
@@ -33,7 +33,7 @@ If you make changes to the data folder and want to upload them, you can create y
 rm -fr archive
 mkdir archive
 GZIP=-9 tar -zcvf archive.tar.gz data
-split -b 80M archive.tar.gz "archive/archive.part" # On macOS, you may need to use 80m with a lowecase 'M'
+split -b 80M archive.tar.gz "archive/archive.part" # On macOS, you may need to use 80m with a lowercase 'M'
 rm archive.tar.gz
 ````
 
@@ -49,7 +49,6 @@ First, update your `/etc/hosts` file with the following settings:
 127.0.0.1   fab.snow.ci gitlab.snow.ci jenkins.snow.ci nexus.snow.ci sonar.snow.ci
 127.0.0.1   jira.snow.ci rundeck.snow.ci nginx.snow.ci mattermost.snow.ci
 127.0.0.1   artifactory.snow.ci
-127.0.0.1   test-local-ssl.io
 127.0.0.1   api.snow.ci
 127.0.0.1   doc.snow.ci
 ````
@@ -62,12 +61,12 @@ Everything should work out-of-the-box.
 
 ## Passwords
 
-All services are set-up with theses default credentials : 
+All services are set-up with these default credentials : 
 
 - Username: admin
 - Password: admin
 
-With the notable exeption of GitLab, which uses `admin@snow.ci` and `adminadmin`. 
+With the notable exception of GitLab, which uses `admin@snow.ci` and `adminadmin`. 
 
 # Security
 
