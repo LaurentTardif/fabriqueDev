@@ -1,0 +1,88 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Dependencies') {
+            steps {
+                sh 'mvn --version'
+                sh 'rm -fr target/*.jar'
+                sh 'mvn -B dependency:resolve'
+            }
+        }
+
+
+        stage('Compile') {
+            steps {
+                sh 'mvn -T 1C -B compile -DskipTests'
+            }
+        }
+
+        stage('JAR; Tests') {
+            parallel {
+                stage('Test') {
+                    steps {
+                        sh 'mvn surefire:test'
+                    }
+                }
+
+                stage('Package') {
+                    steps {
+                        sh 'mvn -B jar:jar -DskipTests'
+						archiveArtifacts artifacts: 'target/fdev**.jar', fingerprint: true
+                    }
+                }
+            }
+        }
+        
+        stage('QC') {
+            parallel {
+				stage('QC') {
+					environment {
+						scannerHome = tool 'SQScan3'
+					}
+					steps {
+						withSonarQubeEnv('sonar') {
+							sh 'mvn -B -DskipTests sonar:sonar'
+						}
+
+						timeout(time: 10, unit: 'MINUTES') {
+							waitForQualityGate abortPipeline: true
+						} 
+					}
+				}
+            }
+        }
+        
+        
+        stage('Nexus; docker') {
+            when { branch 'master' }
+            parallel {
+				stage('Nexus') {
+					steps {
+						sh 'true'
+					}
+				}
+
+                stage('docker tagged') {
+                    environment {
+                        DOCKER_HUB_SECRET = credentials('docker-secret-hub')
+                    }
+                    steps {
+                        sh 'mvn compile jib:build -DskipTests -Dimage=tiphedor/fdev-back:${BUILD_NUMBER} -Djib.to.auth.username=tiphedor -Djib.to.auth.password=$DOCKER_HUB_SECRET'
+                    }
+                }
+
+                stage('docker latest') {
+                    environment {
+                        DOCKER_HUB_SECRET = credentials('docker-secret-hub')
+                    }
+                    steps {
+                        sh 'mvn compile jib:build -DskipTests -Dimage=tiphedor/fdev-back:latest -Djib.to.auth.username=tiphedor -Djib.to.auth.password=$DOCKER_HUB_SECRET'
+                    }
+                }
+            }
+        }
+
+
+    }
+}
